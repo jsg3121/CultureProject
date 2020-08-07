@@ -5,6 +5,9 @@
 </template>
 
 <script>
+import './style/font.css'
+import './style/reset.css'
+
 export default {
   name: 'App'
 }
@@ -12,11 +15,9 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
