@@ -1,7 +1,7 @@
 <template>
   <div class="culture">
       <h1>문화 </h1>
-      <!-- <div class="container">
+      <div class="container">
           <div class="outer">
               <div class="inner">
                   <div class="centered" v-for="culture in dataCulture" :key="culture.cultcode">
@@ -14,24 +14,24 @@
                   </div>
               </div>
           </div>
-      </div> -->
+      </div>
   </div>
 </template>
 
 <script>
-// /* eslint-disable */
-// export default {
-//     created() {
-//         this.$http.get("/culture").then(response => {
-//             this.dataCulture = response.data;
-//         });
-//     },
-//     data() {
-//         return {
-//             dataCulture: []
-//         };
-//     }
-// }
+/* eslint-disable */
+export default {
+    created() {
+        this.$http.get("/culture").then(response => {
+            this.dataCulture = response.data;
+        });
+    },
+    data() {
+        return {
+            dataCulture: []
+        };
+    }
+}
 </script>
 
 <style>
