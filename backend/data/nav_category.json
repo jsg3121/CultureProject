@@ -1,9 +1,46 @@
 [
-    {"category_num" : 1, "category_name" : "카테고리1"},
-    {"category_num" : 2, "category_name" : "카테고리2"},
-    {"category_num" : 3, "category_name" : "카테고리3"},
-    {"category_num" : 4, "category_name" : "카테고리4"},
-    {"category_num" : 5, "category_name" : "카테고리5"},
-    {"category_num" : 6, "category_name" : "카테고리6"},
-    {"category_num" : 7, "category_name" : "카테고리7"}
+  {
+    "category_num": 1,
+    "category_name": "카테고리1",
+    "detailCategory_1": "detail 1",
+    "detailCategory_2": "detail 2",
+    "detailCategory_3": "detail 3"
+  },
+  {
+    "category_num": 2,
+    "category_name": "카테고리2",
+    "detailCategory_1": "detail 1",
+    "detailCategory_2": "detail 2",
+    "detailCategory_3": "detail 3",
+    "detailCategory_4": "detail 4"
+  },
+  {
+    "category_num": 3,
+    "category_name": "카테고리3",
+    "detailCategory_1": "detail 1",
+    "detailCategory_2": "detail 2"
+  },
+  {
+    "category_num": 4,
+    "category_name": "카테고리4",
+    "detailCategory_1": "detail 1"
+  },
+  {
+    "category_num": 5,
+    "category_name": "카테고리5",
+    "detailCategory_1": "detail 1",
+    "detailCategory_2": "detail 2",
+    "detailCategory_3": "detail 3"
+  },
+  {
+    "category_num": 6,
+    "category_name": "카테고리6",
+    "detailCategory_1": "detail 1",
+    "detailCategory_2": "detail 2"
+  },
+  {
+    "category_num": 7,
+    "category_name": "카테고리7",
+    "detailCategory_1": "detail 1"
+  }
 ]

@@ -12,6 +12,13 @@
         </li>
       </ul>
     </nav>
+    <div class="nav-snb">
+      <nav class="snb-list">
+        <ul v-for="snbItem in navCategory[0]" :key="snbItem">
+          <li v-if="snbItem[2]"></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 </template>
 
@@ -72,6 +79,14 @@ export default {
         }
       }
     }
+  }
+
+  .nav-snb {
+    height: 500px;
+    width: 100%;
+    background-color: rgb(243, 233, 194);
+    position: absolute;
+    top: 80px;
   }
 }
 </style>

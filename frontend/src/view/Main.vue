@@ -24,7 +24,7 @@ export default {
   width: 100%;
   .inner-slide {
     width: 100%;
-    height: 1000px;
+    height: 400px;
     background-color: antiquewhite;
     margin-top: 80px;
     position: relative;
