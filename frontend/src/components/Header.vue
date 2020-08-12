@@ -12,13 +12,7 @@
         </li>
       </ul>
     </nav>
-    <div class="nav-snb">
-      <nav class="snb-list">
-        <ul v-for="snbItem in navCategory[0]" :key="snbItem">
-          <li v-if="snbItem[2]"></li>
-        </ul>
-      </nav>
-    </div>
+    <div class="nav-snb"></div>
   </header>
 </template>
 
