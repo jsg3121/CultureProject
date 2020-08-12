@@ -11,6 +11,22 @@ router.get('/category',(req, res) => {
     res.send(navCategory)
 });
 
+router.get('/slide', (req, res) => {
+    const sortCulture = dataCulture
+    const slideList = sortCulture.sort((a,b) => {
+        if (a.end_date < b.end_date) return -1;
+        else if (a.end_date > b.end_date) return 1;
+        else return 0
+    })
+
+    const listArr = new Array();
+    for(let i = 0; i < 5; i++) {
+        listArr[i] = slideList[i]
+    }
+
+    res.send(listArr)
+})
+
 
 // router 경로 지정시 패턴( ' : ' 나 ' ? ' 같은 문자)이 있는 경로는 뒤에 두고 패턴이 없는 경로를 앞에 두어야 와일드 카드역할을 안하기 때문에 사용 가능
 
