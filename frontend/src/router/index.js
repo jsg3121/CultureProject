@@ -16,7 +16,7 @@ export default new Router({
       component: Main
     },
     {
-      path: "/search",
+      path: "/search/:search",
       name: "cultureList",
       component: CultureList
     },

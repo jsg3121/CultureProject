@@ -2,7 +2,9 @@
   <div class="container">
     <vueHeader></vueHeader>
     <searchBox></searchBox>
-    {{searchVal}}
+    <p v-for="searchList in searchVal" :key="searchList.cultcode">
+      {{ searchVal.title }}
+    </p>
   </div>
 </template>
 
@@ -14,18 +16,20 @@ import searchBox from "../components/SearchBox";
 export default {
   created() {
     let search = this.$route.params.data;
-    this.searchVal = search;
+    this.$http.get(`/culture/${search}`).then(response => {
+      this.searchVal = response.data;
+    });
   },
   data() {
     return {
-      searchVal: "",
+      searchVal: []
     };
   },
   components: {
     vueHeader,
     slideVue,
-    searchBox,
-  },
+    searchBox
+  }
 };
 </script>
 

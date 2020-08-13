@@ -1,7 +1,5 @@
 <template>
-  <div class="search-container">
-    <button @click="paramSearch()">검색</button>
-  </div>
+  <div class="search-container"></div>
 </template>
 
 <script>
@@ -9,11 +7,7 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    paramSearch() {
-      this.$router.push({ name: "cultureList", params: { data: "asdfasdf" } });
-    },
-  },
+  methods: {}
 };
 </script>
 
