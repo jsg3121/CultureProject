@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import CultureList from "@/components/CultureListPage";
 import DetailCulture from "@/components/DetailCulture";
 import Main from "@/view/Main";
+import CultureList from "@/view/CultureList";
 
 Vue.use(Router);
 
@@ -14,6 +14,11 @@ export default new Router({
       path: "/",
       name: "main",
       component: Main
+    },
+    {
+      path: "/search",
+      name: "cultureList",
+      component: CultureList
     },
     {
       path: "/:cultcode",

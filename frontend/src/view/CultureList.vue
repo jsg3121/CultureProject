@@ -1,10 +1,8 @@
 <template>
   <div class="container">
     <vueHeader></vueHeader>
-    <div class="inner-slide">
-      <slideVue></slideVue>
-    </div>
     <searchBox></searchBox>
+    {{searchVal}}
   </div>
 </template>
 
@@ -14,6 +12,15 @@ import slideVue from "../components/MainSlide";
 import searchBox from "../components/SearchBox";
 
 export default {
+  created() {
+    let search = this.$route.params.data;
+    this.searchVal = search;
+  },
+  data() {
+    return {
+      searchVal: "",
+    };
+  },
   components: {
     vueHeader,
     slideVue,
@@ -25,12 +32,5 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 100%;
-  .inner-slide {
-    width: 100%;
-    height: 25rem;
-    background-color: antiquewhite;
-    margin-top: 5rem;
-    position: relative;
-  }
 }
 </style>

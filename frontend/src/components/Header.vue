@@ -49,6 +49,12 @@ export default {
   align-items: center;
   z-index: 100;
 
+  &:hover {
+    .nav-snb {
+      height: 13.75rem;
+    }
+  }
+
   h1 {
     width: 7.5rem;
     font-size: 1.5625rem;
@@ -83,11 +89,38 @@ export default {
   }
 
   .nav-snb {
-    height: 500px;
+    height: 0;
     width: 100%;
     background-color: rgb(243, 233, 194);
     position: absolute;
-    top: 80px;
+    top: 5rem;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+
+    ul {
+      width: 6.25rem;
+      margin: 0.625rem 0.625rem 0;
+      text-align: center;
+
+      li {
+        height: 1.25rem;
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        &:hover {
+          background-color: aquamarine;
+        }
+
+        p {
+          font-size: 1rem;
+          line-height: 1.25;
+        }
+      }
+    }
   }
 }
 </style>

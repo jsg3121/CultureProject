@@ -2,13 +2,7 @@
   {
     "category_num": 1,
     "category_name": "카테고리1",
-    "detailCategory": [
-      "하위 1",
-      "하위 2",
-      "detail 3",
-      "detail 4",
-      "디테일 메뉴 5"
-    ]
+    "detailCategory": ["하위 1", "하위 2", "detail 3", "detail 4", "디테일 메뉴 5"]
   },
   {
     "category_num": 2,
