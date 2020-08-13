@@ -12,16 +12,14 @@ router.get('/category',(req, res) => {
 });
 
 router.get('/slide', (req, res) => {
-    const sortCulture = dataCulture
-    const slideList = sortCulture.sort((a,b) => {
-        if (a.end_date < b.end_date) return -1;
-        else if (a.end_date > b.end_date) return 1;
-        else return 0
+    let slideCard = dataCulture.sort((a,b) => {
+       return a.cultcode - b.cultcode;
     })
 
     const listArr = new Array();
+
     for(let i = 0; i < 5; i++) {
-        listArr[i] = slideList[i]
+        listArr[i] = slideCard[i]
     }
 
     res.send(listArr)

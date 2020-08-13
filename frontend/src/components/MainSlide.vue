@@ -1,13 +1,10 @@
 <template>
   <div class="slide-container">
     <div>
-      <ul
-        class="inner-slide-container"
-        :style="{ transform: 'translateX(' + slideEl.move + '%)' }"
-      >
+      <ul class="inner-slide-container" :style="{ transform: 'translateX(' + slideEl.move + '%)' }">
         <li v-for="item in slideItem" :key="item.cultcode">
           <figure>
-            <img :src="item.main_img" alt="" />
+            <img :src="item.main_img" alt />
           </figure>
           <div class="slide-description">
             <p>{{ item.title }}</p>
@@ -17,6 +14,7 @@
       </ul>
     </div>
     <div class="move-slide">
+      <button @click="moveSlide(0)">O</button>
       <button @click="moveSlide(1)">O</button>
       <button @click="moveSlide(2)">O</button>
       <button @click="moveSlide(3)">O</button>
@@ -28,7 +26,7 @@
 <script>
 export default {
   created() {
-    this.$http.get("/culture/slide").then(response => {
+    this.$http.get("/culture/slide").then((response) => {
       this.slideItem = response.data;
     });
   },
@@ -36,9 +34,9 @@ export default {
     return {
       slideItem: [],
       slideEl: {
-        move: -100
+        move: 0,
       },
-      slideTimeSet: 1
+      slideTimeSet: 1,
     };
   },
   mounted() {
@@ -55,8 +53,8 @@ export default {
         else this.slideTimeSet = 1;
         this.slideEl.move = -100 * this.slideTimeSet;
       }, 5000);
-    }
-  }
+    },
+  },
 };
 </script>
 
