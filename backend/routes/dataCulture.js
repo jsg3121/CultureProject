@@ -37,10 +37,10 @@ router.get("/:cultcode", (req, res) => {
 
 router.get("/:search", (req, res) => {
   const searchVal = req.params.data;
-  const culture = dataCulture.filter((culture) => {
-    return culture.codename === searchVal;
-  });
-  res.send(culture);
+  // const culture = dataCulture.filter((culture) => {
+  //   return culture.codename === searchVal;
+  // });
+  res.send(searchVal);
 });
 
 module.exports = router;

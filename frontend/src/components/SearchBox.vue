@@ -1,13 +1,25 @@
 <template>
-  <div class="search-container"></div>
+  <div class="search-container">
+    <!-- <input v-model="searchText" /> -->
+    <input type="text" :value="searchText" @input="inputSearch" />
+    <p>{{ searchText }}</p>
+    <router-link :to="{name: 'cultureList', params: {searchText: searchText}}">다음</router-link>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      searchText: "",
+    };
   },
-  methods: {}
+  methods: {
+    inputSearch: function (event) {
+      let text = event.target.value;
+      this.searchText = text;
+    },
+  },
 };
 </script>
 
