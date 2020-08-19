@@ -13,6 +13,7 @@
               <h3>{{ culture.place }}</h3>
             </div>
           </div>
+          <br />
         </div>
       </div>
     </div>
