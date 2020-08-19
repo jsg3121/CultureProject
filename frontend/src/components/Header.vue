@@ -43,13 +43,14 @@ export default {
 .header {
   height: 5rem;
   width: 100%;
-  background-color: aliceblue;
+  background-color: transparent;
   position: fixed;
   display: flex;
   align-items: center;
   z-index: 100;
 
   &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
     .nav-snb {
       height: 13.75rem;
     }
@@ -60,6 +61,8 @@ export default {
     font-size: 1.5625rem;
     font-weight: bold;
     margin-left: 1rem;
+    color: white;
+    text-shadow: 2px 1px 4px #333333;
   }
 
   .nav-gnb {
@@ -83,6 +86,8 @@ export default {
           font-size: 1.125rem;
           font-weight: normal;
           line-height: 1.22;
+          color: white;
+          text-shadow: 2px 1px 4px #333333;
         }
       }
     }
@@ -91,7 +96,7 @@ export default {
   .nav-snb {
     height: 0;
     width: 100%;
-    background-color: rgb(243, 233, 194);
+    background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 5rem;
     display: flex;
@@ -118,6 +123,8 @@ export default {
         p {
           font-size: 1rem;
           line-height: 1.25;
+          color: white;
+          text-shadow: 2px 1px 4px #333333;
         }
       }
     }

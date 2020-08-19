@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import DetailCulture from "@/components/DetailCulture";
+import DetailCulture from "@/view/DetailCulture";
 import Main from "@/view/Main";
 import CultureList from "@/view/CultureList";
 
@@ -16,12 +16,12 @@ export default new Router({
       component: Main
     },
     {
-      path: "/:searchText",
+      path: "/search/:searchText",
       name: "cultureList",
       component: CultureList
     },
     {
-      path: "/:cultcode",
+      path: "/detail/:detailcode",
       name: "detailculture",
       component: DetailCulture
     }

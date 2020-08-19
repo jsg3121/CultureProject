@@ -11,7 +11,6 @@
               <h3>{{ culture.title }}</h3>
               <h3>{{ culture.time }}</h3>
               <h3>{{ culture.place }}</h3>
-              <router-link :to="{ name: 'culturelist' }">돌아가기</router-link>
             </div>
           </div>
         </div>
@@ -24,16 +23,16 @@
 /* eslint-disable */
 export default {
   created() {
-    let cultcode = this.$route.params.cultcode;
-    this.$http.get(`/culture/${cultcode}`).then(response => {
+    let detailcode = this.$route.params.detailcode;
+    this.$http.get(`/culture/${detailcode}`).then((response) => {
       this.culture = response.data[0];
     });
   },
   data() {
     return {
-      culture: {}
+      culture: {},
     };
-  }
+  },
 };
 </script>
 

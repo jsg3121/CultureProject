@@ -29,7 +29,6 @@ export default {
     width: 100%;
     height: 25rem;
     background-color: antiquewhite;
-    margin-top: 5rem;
     position: relative;
   }
 }
