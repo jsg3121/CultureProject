@@ -13,17 +13,17 @@ export default {
   data() {
     return {};
   },
-  created: function() {
-    console.log(this.$store);
+  created: function () {
+    console.log(this.$store.state.count);
   },
   methods: {
-    increment: function() {
+    increment: function () {
       this.$store.commit("increment");
     },
-    decrement: function() {
+    decrement: function () {
       this.$store.commit("decrement");
-    }
-  }
+    },
+  },
 };
 </script>
 

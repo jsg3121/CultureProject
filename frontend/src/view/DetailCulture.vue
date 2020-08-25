@@ -29,6 +29,7 @@ export default {
 
     this.$http.get(`/culture/${detailcode}`).then((response) => {
       this.culture = response.data[0];
+      this.$store.commit("history");
     });
   },
   data() {

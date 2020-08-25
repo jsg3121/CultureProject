@@ -29,6 +29,7 @@ export default {
     this.$http.get(`/culture/search/${searchText}`).then((response) => {
       this.searchResult = response.data;
     });
+    console.log(this.$store.state.history);
   },
   data() {
     return {
