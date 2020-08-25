@@ -5,7 +5,7 @@
     <div v-else>
       <article v-for="searchList in searchResult" :key="searchList.cultcode">
         <h1>{{searchList.title}}</h1>
-        <h3>기간 : {{searchList.strtdate}} ~ {{searchList.end_date}}</h3>
+        <h3>기간 : {{searchList.start_date}} ~ {{searchList.end_date}}</h3>
         <h3>장소 : {{searchList.place}}</h3>
         <h3>입장료 : {{searchList.use_fee}}</h3>
         <router-link :to="{name : 'detailculture', params: {detailcode : searchList.cultcode}}">상세보기</router-link>

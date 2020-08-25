@@ -4,7 +4,7 @@
       <ul class="inner-slide-container" :style="{ transform: 'translateX(' + slideEl.move + '%)' }">
         <li v-for="item in slideItem" :key="item.cultcode">
           <figure>
-            <img :src="item.main_img" alt />
+            <img :src="item.org_img" alt />
           </figure>
           <div class="slide-description">
             <p>{{ item.title }}</p>

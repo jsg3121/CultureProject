@@ -5,7 +5,7 @@
           <div class="outer">
               <div class="inner">
                   <div class="centered" v-for="culture in dataCulture" :key="culture.cultcode">
-                      <img v-bind:src="culture.main_img" class = "poster">
+                      <img v-bind:src="culture.org_img" class = "poster">
                       <div>
                           <h2>{{culture.codename}}</h2>
                           <h3>{{culture.title}}</h3>
@@ -14,7 +14,7 @@
                   </div>
               </div>
           </div>
-      </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -23,8 +23,8 @@
 import header from "./Header";
 export default {
   components: {
-    header
-  }
+    header,
+  },
   // created() {
   //     this.$http.get("/culture").then(response => {
   //         this.dataCulture = response.data;
