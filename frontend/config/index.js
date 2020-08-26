@@ -43,11 +43,21 @@ module.exports = {
   },
 
   build: {
+    // // Template for index.html
+    // index: path.resolve(__dirname, '../dist/index.html'),
+
+    // // Paths
+    // assetsRoot: path.resolve(__dirname, '../dist'),
+    // assetsSubDirectory: 'static',
+    // assetsPublicPath: '/',
+    // --------------------- 디폴트 ----------------
+
     // Template for index.html
     index: path.resolve(__dirname, "../dist/index.html"),
 
     // Paths
     assetsRoot: path.resolve(__dirname, "../dist"),
+
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
 
