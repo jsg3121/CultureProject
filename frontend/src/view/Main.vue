@@ -5,7 +5,6 @@
       <slideVue></slideVue>
     </div>
     <searchBox></searchBox>
-    <helloWorld></helloWorld>
   </div>
 </template>
 
@@ -13,15 +12,13 @@
 import vueHeader from "../components/Header";
 import slideVue from "../components/MainSlide";
 import searchBox from "../components/SearchBox";
-import helloWorld from "../components/HelloWorld";
 
 export default {
   components: {
     vueHeader,
     slideVue,
-    searchBox,
-    helloWorld,
-  },
+    searchBox
+  }
 };
 </script>
 

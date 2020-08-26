@@ -7,16 +7,9 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    count: 0,
     history: []
   },
   mutations: {
-    increment(state) {
-      state.count++;
-    },
-    decrement(state) {
-      state.count--;
-    },
     history(state, culture) {
       let overlap = false;
       if (state.history.length >= 1) {
