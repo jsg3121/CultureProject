@@ -15,7 +15,6 @@ export const store = new Vuex.Store({
       if (state.history.length >= 1) {
         if (state.history[0].cultcode == culture.cultcode) {
           overlap = true;
-          console.log("overlap!!");
         }
       }
       if (state.history.length >= 2) {

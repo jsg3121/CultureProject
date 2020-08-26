@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <vueHeader></vueHeader>
     <div class="inner-slide">
       <slideVue></slideVue>
     </div>
@@ -9,13 +8,11 @@
 </template>
 
 <script>
-import vueHeader from "../components/Header";
 import slideVue from "../components/MainSlide";
 import searchBox from "../components/SearchBox";
 
 export default {
   components: {
-    vueHeader,
     slideVue,
     searchBox
   }

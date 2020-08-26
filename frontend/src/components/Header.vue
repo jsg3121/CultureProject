@@ -3,7 +3,11 @@
     <h1>Culture</h1>
     <nav class="nav-gnb">
       <ul>
-        <li class="nav-item" v-for="navItem in navCategory" :key="navItem.category_num">
+        <li
+          class="nav-item"
+          v-for="navItem in navCategory"
+          :key="navItem.category_num"
+        >
           <p>{{ navItem.category_name }}</p>
         </li>
       </ul>
@@ -11,7 +15,7 @@
     <div class="nav-snb">
       <ul v-for="snbItem in navCategory" :key="snbItem.category_num">
         <li v-for="itemList in snbList(snbItem)" :key="itemList">
-          <p>{{itemList}}</p>
+          <p>{{ itemList }}</p>
         </li>
       </ul>
     </div>
@@ -22,20 +26,20 @@
 /* eslint-disable */
 export default {
   created() {
-    this.$http.get("/culture/category").then((response) => {
+    this.$http.get("/culture/category").then(response => {
       this.navCategory = response.data;
     });
   },
   data() {
     return {
-      navCategory: [],
+      navCategory: []
     };
   },
   methods: {
-    snbList: (listItem) => {
+    snbList: listItem => {
       return listItem.detailCategory;
-    },
-  },
+    }
+  }
 };
 </script>
 

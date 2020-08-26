@@ -39,7 +39,7 @@ router.get("/:cultcode", (req, res) => {
 router.get("/search/:search", (req, res) => {
   const searchVal = req.params.search;
   const searchResult = dataCulture.filter((culture) => {
-    return culture.title.indexOf(searchVal) !== -1;
+    return culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1;
   });
 
   res.send(searchResult);
