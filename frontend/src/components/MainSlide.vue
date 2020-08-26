@@ -14,11 +14,7 @@
       </ul>
     </div>
     <div class="move-slide">
-      <button @click="moveSlide(0)">O</button>
-      <button @click="moveSlide(1)">O</button>
-      <button @click="moveSlide(2)">O</button>
-      <button @click="moveSlide(3)">O</button>
-      <button @click="moveSlide(4)">O</button>
+      <button v-for="idx in 5" :key="idx" @click="moveSlide(`${idx - 1}`)">O</button>
     </div>
   </div>
 </template>
