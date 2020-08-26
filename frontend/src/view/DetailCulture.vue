@@ -17,27 +17,32 @@
         </div>
       </div>
     </div>
+    <history></history>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
+import history from "../components/History";
 
 export default {
   created() {
     let detailcode = this.$route.params.detailcode;
 
-    this.$http.get(`/culture/${detailcode}`).then((response) => {
+    this.$http.get(`/culture/${detailcode}`).then(response => {
       this.culture = response.data[0];
-      this.$store.commit("history");
+      this.$store.commit("history", response.data[0]);
     });
   },
   data() {
     return {
-      culture: {},
+      culture: {}
     };
   },
   methods: {},
+  components: {
+    history
+  }
 };
 </script>
 

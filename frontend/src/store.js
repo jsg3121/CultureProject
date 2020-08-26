@@ -17,8 +17,22 @@ export const store = new Vuex.Store({
     decrement(state) {
       state.count--;
     },
-    history(state) {
-      state.history.push("123");
+    history(state, culture) {
+      let overlap = false;
+      if (state.history.length >= 1) {
+        if (state.history[0].cultcode == culture.cultcode) {
+          overlap = true;
+          console.log("overlap!!");
+        }
+      }
+      if (state.history.length >= 2) {
+        if (state.history[1].cultcode == culture.cultcode) {
+          state.history.splice(1, 1);
+          overlap = false;
+        }
+      }
+      if (overlap == false) state.history.unshift(culture);
+      if (state.history.length == 4) state.history.pop();
     }
   },
   plugins: [createPersistedState()]
