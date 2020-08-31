@@ -1,28 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const dataCulture = require("../data/T_CULTURE_DATA_TABLE.json");
-const navCategory = require("../data/nav_category.json");
 
 router.get("/", (req, res) => {
   res.send(dataCulture);
-});
-
-router.get("/category", (req, res) => {
-  res.send(navCategory);
-});
-
-router.get("/slide", (req, res) => {
-  let slideCard = dataCulture.sort((a, b) => {
-    return a.cultcode - b.cultcode;
-  });
-
-  const listArr = new Array();
-
-  for (let i = 0; i < 5; i++) {
-    listArr[i] = slideCard[i];
-  }
-
-  res.send(listArr);
 });
 
 // router 경로 지정시 패턴( ' : ' 나 ' ? ' 같은 문자)이 있는 경로는 뒤에 두고 패턴이 없는 경로를 앞에 두어야 와일드 카드역할을 안하기 때문에 사용 가능
