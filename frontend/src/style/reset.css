@@ -4,7 +4,7 @@ html, body {
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
-	font-family: 'noto-sans-cjkkr';
+	font-family: 'nanumSquare';
 	vertical-align: baseline;
 }
 
@@ -38,7 +38,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 1rem;
-	font-family: 'noto-sans-cjkkr';
+	font-family: 'nanumSquare';
 	vertical-align: baseline;
 	-webkit-font-smoothing: antialiased;
 	box-sizing: border-box;
@@ -85,7 +85,7 @@ button:focus,input[type='password']:focus {
 
 button {
 	cursor: pointer;
-	font-family: 'noto-sans-cjkkr';
+	font-family: 'nanumSquare';
 }
 
 select:focus,textarea:focus{
