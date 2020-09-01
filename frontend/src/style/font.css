@@ -22,22 +22,29 @@
 }
 
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Cocogoose";
   font-weight: 300;
-  src: url("../assets/font/Montserrat-Light.otf") format("opentype"),
-    url("../assets/font/Montserrat-Light.woff") format("woff");
+  src: url("../assets/font/Cocogoose-Pro-Ultralight-trial.otf") format("opentype"),
+    url("../assets/font/Cocogoose-Pro-Ultralight-trial.woff") format("woff");
 }
 
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Cocogoose";
   font-weight: 500;
-  src: url("../assets/font/Montserrat-Medium.otf") format("opentype"),
-    url("../assets/font/Montserrat-Medium.woff") format("woff");
+  src: url("../assets/font/Cocogoose-Pro-Light-trial.otf") format("opentype"),
+    url("../assets/font/Cocogoose-Pro-Light-trial.woff") format("woff");
 }
 
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Cocogoose";
   font-weight: 700;
-  src: url("../assets/font/Montserrat-Bold.otf") format("opentype"),
-    url("../assets/font/Montserrat-Bold.woff") format("woff");
+  src: url("../assets/font/Cocogoose-Pro-Semilight-trial.otf") format("opentype"),
+    url("../assets/font/Cocogoose-Pro-Semilight-trial.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Cocogoose";
+  font-weight: 900;
+  src: url("../assets/font/Cocogoose-Pro-trial.otf") format("opentype"),
+    url("../assets/font/Cocogoose-Pro-trial.woff") format("woff");
 }

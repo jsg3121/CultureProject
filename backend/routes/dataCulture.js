@@ -6,6 +6,40 @@ router.get("/", (req, res) => {
   res.send(dataCulture);
 });
 
+router.get("/program", (req, res) => {
+  const dataSort = dataCulture.sort((a, b) => {
+    return a.popular > b.popular ? -1 : a.name < b.name ? 1 : 0;
+  });
+
+  let program = new Array();
+
+  for (let i = 0; i < 9; i++) {
+    program[i] = dataSort[i];
+  }
+
+  res.send(program);
+});
+
+router.get("/whatsOn", (req, res) => {
+  let whatsOnData = new Array();
+
+  for (let i = 0; ; i++) {
+    let random = Math.floor(Math.random() * dataCulture.length) + 1;
+    whatsOnData.push(dataCulture[random]);
+
+    if (whatsOnData[0].cultcode == parseInt.toString(random)) {
+      random = Math.floor(Math.random() * dataCulture.length) + 1;
+      whatsOnData.push(dataCulture[random]);
+    }
+
+    if (whatsOnData.length == 2) {
+      break;
+    }
+  }
+
+  res.send(whatsOnData);
+});
+
 // router 경로 지정시 패턴( ' : ' 나 ' ? ' 같은 문자)이 있는 경로는 뒤에 두고 패턴이 없는 경로를 앞에 두어야 와일드 카드역할을 안하기 때문에 사용 가능
 
 router.get("/:cultcode", (req, res) => {

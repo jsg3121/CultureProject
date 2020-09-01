@@ -112,7 +112,7 @@ export default {
 
     .content_category {
       width: 44.25rem;
-      height: 6.875rem;
+      height: 6.975rem;
       margin: 5.125rem auto 0;
 
       ul {
