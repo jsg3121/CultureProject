@@ -12,7 +12,12 @@
           placeholder="검색어를 입력해주세요."
         />
         <figure>
-          <img src="../assets/image/h-icon-search@2x.png" alt="search icon" @click="submit" />
+          <img
+            src="../assets/image/h-icon-search@2x.png"
+            alt="search icon"
+            @click="submit"
+            draggable="false"
+          />
         </figure>
       </div>
       <nav class="content_category">
@@ -31,16 +36,16 @@ export default {
   data() {
     return {
       categoryItem: [
-        { item_num: 1, category: "문화교양/강좌" },
-        { item_num: 2, category: "영화" },
-        { item_num: 3, category: "전시/미술" },
-        { item_num: 4, category: "무용" },
-        { item_num: 5, category: "축제" },
-        { item_num: 6, category: "뮤지컬,오페라" },
-        { item_num: 7, category: "콘서트" },
-        { item_num: 8, category: "클래식" },
-        { item_num: 9, category: "판소리" },
-        { item_num: 10, category: "기타" },
+        { item_num: 1, category: "전체" },
+        { item_num: 2, category: "문화교양/강좌" },
+        { item_num: 3, category: "영화" },
+        { item_num: 4, category: "전시/미술" },
+        { item_num: 5, category: "무용" },
+        { item_num: 6, category: "축제" },
+        { item_num: 7, category: "뮤지컬,오페라" },
+        { item_num: 8, category: "콘서트" },
+        { item_num: 9, category: "클래식" },
+        { item_num: 10, category: "판소리" },
       ],
       searchText: "",
     };

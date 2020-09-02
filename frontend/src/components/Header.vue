@@ -1,23 +1,27 @@
 <template>
   <header class="header">
-    <h1>Culture</h1>
-    <nav class="nav-gnb">
-      <ul>
-        <li
-          class="nav-item"
-          v-for="navItem in navCategory"
-          :key="navItem.category_num"
-        >
-          <p>{{ navItem.category_name }}</p>
-        </li>
-      </ul>
-    </nav>
-    <div class="nav-snb">
-      <ul v-for="snbItem in navCategory" :key="snbItem.category_num">
-        <li v-for="itemList in snbList(snbItem)" :key="itemList">
-          <p>{{ itemList }}</p>
-        </li>
-      </ul>
+    <div class="header_container">
+      <figure class="logo" @click="goMain">
+        <img src="../assets/image/h-main-logo@2x.png" alt />
+      </figure>
+      <div class="searchBox">
+        <input
+          type="text"
+          class="input_text"
+          :value="searchText"
+          @input="inputSearch"
+          @keyup.enter="submit"
+          placeholder="검색어를 입력해주세요."
+        />
+        <figure>
+          <img
+            src="../assets/image/h-icon-search@2x.png"
+            alt="search icon"
+            @click="submit"
+            draggable="false"
+          />
+        </figure>
+      </div>
     </div>
   </header>
 </template>
@@ -25,110 +29,82 @@
 <script>
 /* eslint-disable */
 export default {
-  created() {
-    this.$http.get("/culture/category").then(response => {
-      this.navCategory = response.data;
-    });
-  },
+  created() {},
   data() {
     return {
-      navCategory: []
+      searchText: "",
     };
   },
   methods: {
-    snbList: listItem => {
-      return listItem.detailCategory;
-    }
-  }
+    inputSearch: function (event) {
+      let text = event.target.value;
+      this.searchText = text;
+    },
+    submit: function () {
+      this.$router.push({
+        name: "cultureList",
+        params: { searchText: this.searchText },
+      });
+    },
+    goMain: function () {
+      this.$router.push({
+        name: "main",
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .header {
-  height: 5rem;
   width: 100%;
-  background-color: transparent;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  z-index: 100;
+  height: 6.375rem;
+  box-shadow: 0px 5px 14.4px 0.6px rgba(0, 0, 0, 0.17);
+  background-color: #ebebeb;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    .nav-snb {
-      height: 13.75rem;
-    }
-  }
+  .header_container {
+    height: 100%;
+    width: 100%;
+    max-width: 64.8125rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
 
-  h1 {
-    width: 7.5rem;
-    font-size: 1.5625rem;
-    font-weight: bold;
-    margin-left: 1rem;
-    color: white;
-    text-shadow: 2px 1px 4px #333333;
-  }
+    .logo {
+      width: 8.25rem;
+      height: 3.625rem;
+      cursor: pointer;
 
-  .nav-gnb {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 67.5rem;
-
-    ul {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      li {
-        margin: 0 0.625rem;
-        padding: 0 0.75rem;
-        height: 1.375rem;
-        cursor: pointer;
-
-        p {
-          font-size: 1.125rem;
-          font-weight: normal;
-          line-height: 1.22;
-          color: white;
-          text-shadow: 2px 1px 4px #333333;
-        }
+      img {
+        height: 100%;
+        width: auto;
       }
     }
-  }
 
-  .nav-snb {
-    height: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 5rem;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
+    .searchBox {
+      width: 33.8125rem;
+      height: 2.75rem;
+      background-color: #ffffff;
+      box-shadow: 0px 0.625rem 1.61875rem 0.06875rem rgba(0, 0, 0, 0.17);
+      margin: 0 auto;
+      display: flex;
 
-    ul {
-      width: 6.25rem;
-      margin: 0.625rem 0.625rem 0;
-      text-align: center;
+      .input_text {
+        width: calc(100% - 0.9375rem);
+        border: 0;
+        padding-left: 0.9375rem;
+        font-family: "nanumSquare";
+        font-size: 1.15625rem;
+        text-align: left;
+        color: #5d5d5d;
+      }
 
-      li {
-        height: 1.25rem;
-        margin-bottom: 0.5rem;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-        &:hover {
-          background-color: aquamarine;
-        }
-
-        p {
-          font-size: 1rem;
-          line-height: 1.25;
-          color: white;
-          text-shadow: 2px 1px 4px #333333;
+      figure {
+        height: calc(100% - 0.5rem);
+        margin: 0.25rem 0.75rem 0.25rem 0;
+        img {
+          height: 100%;
+          cursor: pointer;
         }
       }
     }

@@ -23,19 +23,22 @@ router.get("/program", (req, res) => {
 router.get("/whatsOn", (req, res) => {
   let whatsOnData = new Array();
 
-  for (let i = 0; ; i++) {
-    let random = Math.floor(Math.random() * dataCulture.length) + 1;
-    whatsOnData.push(dataCulture[random]);
+  // for (let i = 0; ; i++) {
+  //   let random = Math.floor(Math.random() * dataCulture.length) + 1;
+  //   whatsOnData.push(dataCulture[random]);
 
-    if (whatsOnData[0].cultcode == parseInt.toString(random)) {
-      random = Math.floor(Math.random() * dataCulture.length) + 1;
-      whatsOnData.push(dataCulture[random]);
-    }
+  //   if (whatsOnData[0].cultcode == parseInt.toString(random)) {
+  //     random = Math.floor(Math.random() * dataCulture.length) + 1;
+  //     whatsOnData.push(dataCulture[random]);
+  //   }
 
-    if (whatsOnData.length == 2) {
-      break;
-    }
-  }
+  //   if (whatsOnData.length == 2) {
+  //     break;
+  //   }
+  // }
+
+  whatsOnData.push(dataCulture[1113]);
+  whatsOnData.push(dataCulture[243]);
 
   res.send(whatsOnData);
 });
@@ -53,10 +56,12 @@ router.get("/:cultcode", (req, res) => {
 
 router.get("/search/:search", (req, res) => {
   const searchVal = req.params.search;
-  const searchResult = dataCulture.filter((culture) => {
-    return culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1;
-  });
+  const today = new Date();
 
+  const searchResult = dataCulture.filter((culture) => {
+    const end_date = new Date(culture.end_date);
+    return (culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1) && today <= end_date;
+  });
   res.send(searchResult);
 });
 
