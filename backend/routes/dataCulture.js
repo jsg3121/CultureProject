@@ -56,11 +56,11 @@ router.get("/:cultcode", (req, res) => {
 
 router.get("/search/:search", (req, res) => {
   const searchVal = req.params.search;
-  const today = new Date();
 
   const searchResult = dataCulture.filter((culture) => {
-    const end_date = new Date(culture.end_date);
-    return (culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1) && today <= end_date;
+    // const end_date = new Date(culture.end_date);
+    // return (culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1) && today <= end_date;
+    return culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1;
   });
   res.send(searchResult);
 });

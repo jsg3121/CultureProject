@@ -117,6 +117,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 100%;
+  margin-top: 6.375rem;
 
   .detail_search {
     height: 14.125rem;
