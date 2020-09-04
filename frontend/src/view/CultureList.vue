@@ -12,12 +12,12 @@
           <div class="select_box" @click="dropdown">
             <p>전체</p>
             <ul class="select_option">
-              <li class="option">강남구</li>
-              <li class="option">금천구</li>
-              <li class="option">강동구</li>
-              <li class="option">광진구</li>
-              <li class="option">강북구</li>
-              <li class="option">강서구</li>
+              <li
+                class="option"
+                v-for="(item, index) in area"
+                :key="item.id"
+                @click="selectArea(index)"
+              >{{item.name}}</li>
             </ul>
           </div>
         </div>
@@ -56,7 +56,12 @@
       </div>
     </div>
     <div v-if="searchResult.length != 0" class="culture_list">
-      <article v-for="searchList in searchResult" :key="searchList.cultcode" class="culture_item">
+      <article
+        v-for="(searchList, index) in searchResult"
+        :key="searchList.cultcode"
+        class="culture_item"
+        @click="submit(index)"
+      >
         <h3 class="culture_place">장소 : {{ searchList.place }}</h3>
         <figure>
           <img :src="searchList.org_img" alt />
@@ -98,6 +103,35 @@ export default {
     return {
       searchVal: "",
       searchResult: [],
+      area: [
+        { id: 1, name: "전체" },
+        { id: 2, name: "강남구" },
+        { id: 3, name: "강동구" },
+        { id: 4, name: "강북구" },
+        { id: 5, name: "강서구" },
+        { id: 6, name: "관악구" },
+        { id: 7, name: "광진구" },
+        { id: 8, name: "구로구" },
+        { id: 9, name: "금천구" },
+        { id: 10, name: "노원구" },
+        { id: 11, name: "도봉구" },
+        { id: 12, name: "동대문구" },
+        { id: 13, name: "동작구" },
+        { id: 14, name: "마포구" },
+        { id: 15, name: "서대문구" },
+        { id: 16, name: "서초구" },
+        { id: 17, name: "성동구" },
+        { id: 18, name: "성북구" },
+        { id: 19, name: "송파구" },
+        { id: 20, name: "양천구" },
+        { id: 21, name: "영등포구" },
+        { id: 22, name: "용산구" },
+        { id: 23, name: "은평구" },
+        { id: 24, name: "종로구" },
+        { id: 25, name: "중구" },
+        { id: 26, name: "중랑구" },
+      ],
+      beforeFilter: [],
     };
   },
   components: {
@@ -123,6 +157,24 @@ export default {
         }
         drop.classList.add("select");
       }
+    },
+    submit: function (index) {
+      this.$router.push({
+        name: "detailculture",
+        params: { detailcode: this.searchResult[index].cultcode },
+      });
+    },
+    selectArea: function (index) {
+      this.beforeFilter = this.searchResult;
+      this.searchResult.splice(0);
+
+      for (let i = 0; i < this.beforeFilter; i++) {
+        if (this.area[index].name === this.beforeFilter[i].borough) {
+          this.searchResult.push(this.beforeFilter[i]);
+        }
+      }
+
+      console.log(this.beforeFilter);
     },
   },
 };
