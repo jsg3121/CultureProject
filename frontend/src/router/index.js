@@ -21,6 +21,11 @@ export default new Router({
       component: CultureList
     },
     {
+      path: "/list/:category",
+      name: "categoryList",
+      component: CultureList
+    },
+    {
       path: "/detail/:detailcode",
       name: "detailculture",
       component: DetailCulture

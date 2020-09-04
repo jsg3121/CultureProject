@@ -26,7 +26,7 @@
           <div class="select_box" @click="dropdown">
             <p>전체</p>
             <ul class="select_option">
-              <li class="option">문화교양/강좌</li>
+              <li class="option">문화교양\/강좌</li>
               <li class="option">뮤지컬</li>
               <li class="option">국악</li>
               <li class="option">콘서트</li>
@@ -75,8 +75,16 @@ import slideVue from "../components/MainSlide";
 export default {
   created() {
     let searchText = this.$route.params.searchText;
+    let categoryName = this.$route.params.category;
+
+    this.category = categoryName;
     this.searchVal = searchText;
+
     this.$http.get(`/culture/search/${searchText}`).then((response) => {
+      this.searchResult = response.data;
+    });
+
+    this.$http.get(`/culture/search/${categoryName}`).then((response) => {
       this.searchResult = response.data;
     });
   },
@@ -84,6 +92,7 @@ export default {
     return {
       searchVal: "",
       searchResult: [],
+      category: "",
     };
   },
   components: {

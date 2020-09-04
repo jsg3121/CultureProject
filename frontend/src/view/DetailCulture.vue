@@ -137,7 +137,7 @@ export default {
       li {
         height: 3.4375rem;
         width: 100%;
-        max-width: 48.5rem;
+        max-width: 58.5rem;
         margin: 0 auto;
         display: flex;
         align-items: center;

@@ -23,7 +23,10 @@
       <nav class="content_category">
         <ul class="category_list">
           <li class="list_item" v-for="item in categoryItem" :key="item.item_num">
-            <p>{{item.category}}</p>
+            <router-link
+              class="categoryLink"
+              :to="{name:'categoryList', params:{category: item.category}}"
+            >{{item.category}}</router-link>
           </li>
         </ul>
       </nav>
@@ -37,7 +40,7 @@ export default {
     return {
       categoryItem: [
         { item_num: 1, category: "전체" },
-        { item_num: 2, category: "문화교양/강좌" },
+        { item_num: 2, category: "문화교양&강좌" },
         { item_num: 3, category: "영화" },
         { item_num: 4, category: "전시/미술" },
         { item_num: 5, category: "무용" },
@@ -45,7 +48,7 @@ export default {
         { item_num: 7, category: "뮤지컬,오페라" },
         { item_num: 8, category: "콘서트" },
         { item_num: 9, category: "클래식" },
-        { item_num: 10, category: "판소리" },
+        { item_num: 10, category: "국악" },
       ],
       searchText: "",
     };
@@ -130,19 +133,20 @@ export default {
         li {
           width: 8.75rem;
           height: 3.375rem;
+          border: solid 0.125rem #ffffff;
           background-color: #ffffff;
           cursor: pointer;
 
           &:hover {
             border: solid 0.125rem #ff8604;
 
-            p {
+            .categoryLink {
               color: #ff8604;
-              line-height: 2.8;
+              line-height: 3;
             }
           }
 
-          p {
+          .categoryLink {
             width: 100%;
             height: 100%;
             font-size: 1.15625rem;
@@ -150,6 +154,7 @@ export default {
             line-height: 3;
             text-align: center;
             color: #333333;
+            display: block;
           }
         }
       }

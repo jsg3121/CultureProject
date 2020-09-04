@@ -4,18 +4,28 @@
       <h3>[ PROGRAM ]</h3>
       <h6>이번달 인기있는 전시들을 한눈에 알아보세요</h6>
       <div class="program_container">
-        <button class="btn_prev"></button>
-        <ul class="program_list">
-          <li class="list_item" v-for="proList in programCulture" :key="proList.cultcode">
-            <figure>
-              <img :src="proList.org_img" alt />
-            </figure>
-            <h5 class="culture_title">{{proList.title}}</h5>
-            <p>{{proList.place}}</p>
-            <p>{{proList.start_date}} ~ {{proList.end_date}}</p>
-          </li>
-        </ul>
-        <button class="btn_next"></button>
+        <button class="btn_prev" @click="prev"></button>
+        <div class="list_box">
+          <ul
+            class="program_list"
+            :style="{transform: 'translateX(' + (56.9 * programMove) + 'rem)'}"
+          >
+            <li
+              class="list_item"
+              v-for="proList in programCulture"
+              :key="proList.cultcode"
+              @click="submit(proList.cultcode)"
+            >
+              <figure>
+                <img :src="proList.org_img" alt />
+              </figure>
+              <h5 class="culture_title">{{proList.title}}</h5>
+              <p>{{proList.place}}</p>
+              <p>{{proList.start_date}} ~ {{proList.end_date}}</p>
+            </li>
+          </ul>
+        </div>
+        <button class="btn_next" @click="next"></button>
       </div>
     </div>
     <div class="whats_on">
@@ -54,7 +64,30 @@ export default {
     return {
       programCulture: [],
       whatsOn: [],
+      programMove: 0,
     };
+  },
+  methods: {
+    submit: function (id) {
+      this.$router.push({
+        name: "detailculture",
+        params: { detailcode: id },
+      });
+    },
+    next: function () {
+      if (this.programMove > -2) {
+        this.programMove--;
+      } else {
+        this.programMove == -2;
+      }
+    },
+    prev: function () {
+      if (this.programMove < 0) {
+        this.programMove++;
+      } else {
+        this.programMove == 0;
+      }
+    },
   },
 };
 </script>
@@ -87,64 +120,70 @@ export default {
       align-items: center;
       justify-content: center;
 
-      .program_list {
-        display: flex;
-        width: 100%;
-        max-width: 58.3rem;
+      .list_box {
+        max-width: 58.4rem;
         overflow: hidden;
         padding: 3.9375rem 2.5rem 0;
 
-        .list_item {
-          margin-right: 3.5rem;
+        .program_list {
+          display: flex;
+          width: 100%;
+          width: 167.025rem;
+          justify-content: space-between;
+          transition: transform 0.5s;
 
-          figure {
+          .list_item {
+            cursor: pointer;
             width: 15.4375rem;
-            height: 19.6875rem;
-            box-shadow: 0.3625rem 0.3875rem 1.075rem 0.325rem
-              rgba(0, 0, 0, 0.33);
 
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: contain;
+            figure {
+              width: 15.4375rem;
+              height: 19.6875rem;
+              box-shadow: 0.0625rem 0.3875rem 1.075rem 0.125rem
+                rgba(0, 0, 0, 0.33);
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+              }
             }
-          }
 
-          .culture_title {
-            width: 11.5625rem;
-            font-size: 1rem;
-            font-weight: bold;
-            text-align: center;
-            color: #373232;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin: 2.625rem auto 0;
+            .culture_title {
+              width: 11.5625rem;
+              font-size: 1rem;
+              font-weight: bold;
+              text-align: center;
+              color: #373232;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              margin: 2.625rem auto 0;
 
-            &:after {
-              content: "";
-              width: 1.5rem;
-              height: 0.1875rem;
-              background-color: #333333;
-              display: block;
-              margin: 0.5625rem auto 1.5rem;
+              &:after {
+                content: "";
+                width: 1.5rem;
+                height: 0.1875rem;
+                background-color: #333333;
+                display: block;
+                margin: 0.5625rem auto 1.5rem;
+              }
             }
-          }
 
-          p {
-            width: 13.4375rem;
-            font-size: 0.875rem;
-            font-weight: normal;
-            text-align: center;
-            color: #373232;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin: 0 auto 0.5625rem;
+            p {
+              width: 13.4375rem;
+              font-size: 0.875rem;
+              font-weight: normal;
+              text-align: center;
+              color: #373232;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              margin: 0 auto 0.5625rem;
+            }
           }
         }
       }
-
       button {
         width: 2.25rem;
         height: 3.75rem;
