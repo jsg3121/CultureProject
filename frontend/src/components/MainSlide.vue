@@ -42,14 +42,14 @@ export default {
           src: require("../assets/image/main-slide-exhibition.png"),
           title: "전시회",
           coment: "조용한 곳에서 눈으로 보는<br>마음의 평화를 얻어가세요",
-          category_name: "전시&미술",
+          category_name: "전시",
         },
         {
           item_num: 4,
           src: require("../assets/image/main-slide-musical.png"),
           title: "뮤지컬",
           coment: "신나는 노래와 함께<br>한 편의 이야기를 즐겨보세요",
-          category_name: "뮤지컬/오페라",
+          category_name: "뮤지컬",
         },
         {
           item_num: 5,

@@ -25,7 +25,7 @@
           <li class="list_item" v-for="item in categoryItem" :key="item.item_num">
             <router-link
               class="categoryLink"
-              :to="{name:'categoryList', params:{category: item.category}}"
+              :to="{name:'categoryList', params:{category: item.searchCategory}}"
             >{{item.category}}</router-link>
           </li>
         </ul>
@@ -39,16 +39,16 @@ export default {
   data() {
     return {
       categoryItem: [
-        { item_num: 1, category: "전체" },
-        { item_num: 2, category: "문화교양&강좌" },
-        { item_num: 3, category: "영화" },
-        { item_num: 4, category: "전시/미술" },
-        { item_num: 5, category: "무용" },
-        { item_num: 6, category: "축제" },
-        { item_num: 7, category: "뮤지컬,오페라" },
-        { item_num: 8, category: "콘서트" },
-        { item_num: 9, category: "클래식" },
-        { item_num: 10, category: "국악" },
+        { item_num: 1, category: "전체", searchCategory: "전체" },
+        { item_num: 2, category: "문화교양, 강좌", searchCategory: "문화교양" },
+        { item_num: 3, category: "영화", searchCategory: "영화" },
+        { item_num: 4, category: "전시, 미술", searchCategory: "전시" },
+        { item_num: 5, category: "무용", searchCategory: "무용" },
+        { item_num: 6, category: "축제", searchCategory: "축제" },
+        { item_num: 7, category: "뮤지컬, 오페라", searchCategory: "뮤지컬" },
+        { item_num: 8, category: "콘서트", searchCategory: "콘서트" },
+        { item_num: 9, category: "클래식", searchCategory: "클래식" },
+        { item_num: 10, category: "국악", searchCategory: "국악" },
       ],
       searchText: "",
     };

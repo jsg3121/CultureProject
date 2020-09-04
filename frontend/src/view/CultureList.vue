@@ -75,24 +75,29 @@ import slideVue from "../components/MainSlide";
 export default {
   created() {
     let searchText = this.$route.params.searchText;
-    let categoryName = this.$route.params.category;
+    let category = this.$route.params.category;
 
-    this.category = categoryName;
-    this.searchVal = searchText;
+    console.log(searchText);
+    console.log(category);
 
-    this.$http.get(`/culture/search/${searchText}`).then((response) => {
-      this.searchResult = response.data;
-    });
+    if (searchText === undefined) {
+      this.searchVal = category;
 
-    this.$http.get(`/culture/search/${categoryName}`).then((response) => {
-      this.searchResult = response.data;
-    });
+      this.$http.get(`/culture/category/${category}`).then((response) => {
+        this.searchResult = response.data;
+      });
+    } else if (category === undefined) {
+      this.searchVal = searchText;
+
+      this.$http.get(`/culture/search/${searchText}`).then((response) => {
+        this.searchResult = response.data;
+      });
+    }
   },
   data() {
     return {
       searchVal: "",
       searchResult: [],
-      category: "",
     };
   },
   components: {

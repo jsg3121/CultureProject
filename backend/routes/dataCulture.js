@@ -54,13 +54,22 @@ router.get("/:cultcode", (req, res) => {
   res.send(culture);
 });
 
-router.get("/search/:search", (req, res) => {
-  const searchVal = req.params.search;
+router.get("/search/:searchText", (req, res) => {
+  const searchVal = req.params.searchText;
 
   const searchResult = dataCulture.filter((culture) => {
     // const end_date = new Date(culture.end_date);
     // return (culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1) && today <= end_date;
     return culture.title.toUpperCase().indexOf(searchVal) !== -1 || culture.title.toLowerCase().indexOf(searchVal) !== -1;
+  });
+  res.send(searchResult);
+});
+
+router.get("/category/:categoryList", (req, res) => {
+  const searchVal = req.params.categoryList;
+
+  const searchResult = dataCulture.filter((culture) => {
+    return culture.codename.toUpperCase().indexOf(searchVal) !== -1 || culture.codename.toLowerCase().indexOf(searchVal) !== -1;
   });
   res.send(searchResult);
 });
