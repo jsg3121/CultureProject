@@ -82,20 +82,19 @@ export default {
     let searchText = this.$route.params.searchText;
     let category = this.$route.params.category;
 
-    console.log(searchText);
-    console.log(category);
-
     if (searchText === undefined) {
       this.searchVal = category;
 
       this.$http.get(`/culture/category/${category}`).then((response) => {
-        this.searchResult = response.data;
+        this.$store.state.cultureList = response.data;
+        this.searchResult = this.$store.state.cultureList.slice();
       });
     } else if (category === undefined) {
       this.searchVal = searchText;
 
       this.$http.get(`/culture/search/${searchText}`).then((response) => {
-        this.searchResult = response.data;
+        this.$store.state.cultureList = response.data;
+        this.searchResult = this.$store.state.cultureList.slice();
       });
     }
   },
@@ -131,7 +130,6 @@ export default {
         { id: 25, name: "중구" },
         { id: 26, name: "중랑구" },
       ],
-      beforeFilter: [],
     };
   },
   components: {
@@ -165,16 +163,15 @@ export default {
       });
     },
     selectArea: function (index) {
-      this.beforeFilter = this.searchResult;
       this.searchResult.splice(0);
+      let data = this.$store.state.cultureList;
 
-      for (let i = 0; i < this.beforeFilter; i++) {
-        if (this.area[index].name === this.beforeFilter[i].borough) {
-          this.searchResult.push(this.beforeFilter[i]);
+      for (let i = 0; i < data.length; i++) {
+        if (this.$store.state.cultureList[i].borough == this.area[index].name) {
+          this.searchResult.push(this.$store.state.cultureList[i]);
         }
       }
-
-      console.log(this.beforeFilter);
+      console.log(this.$store.state.cultureList);
     },
   },
 };

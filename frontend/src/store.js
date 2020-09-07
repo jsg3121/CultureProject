@@ -7,7 +7,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    history: []
+    history: [],
+    cultureList: []
   },
   mutations: {
     history(state, culture) {
@@ -25,6 +26,10 @@ export const store = new Vuex.Store({
       }
       if (overlap == false) state.history.unshift(culture);
       if (state.history.length == 4) state.history.pop();
+    },
+    filter(state, name) {
+      console.log(state.cultureList);
+      console.log(name);
     }
   },
   plugins: [createPersistedState()]
