@@ -8,9 +8,23 @@
       </div>
       <div class="detail_filter">
         <div class="filter_item">
+          <p class="item_title">분류</p>
+          <div class="select_box" @click="dropdown">
+            <p>{{selectCategory}}</p>
+            <ul class="select_option">
+              <li
+                class="option"
+                v-for="(item, index) in category"
+                :key="item.id"
+                @click="selectCulture(index)"
+              >{{item.name}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="filter_item">
           <p class="item_title">지역</p>
           <div class="select_box" @click="dropdown">
-            <p>전체</p>
+            <p>{{selectLocate}}</p>
             <ul class="select_option">
               <li
                 class="option"
@@ -21,19 +35,7 @@
             </ul>
           </div>
         </div>
-        <div class="filter_item">
-          <p class="item_title">분류</p>
-          <div class="select_box" @click="dropdown">
-            <p>전체</p>
-            <ul class="select_option">
-              <li class="option">문화교양\/강좌</li>
-              <li class="option">뮤지컬</li>
-              <li class="option">국악</li>
-              <li class="option">콘서트</li>
-              <li class="option">전시회/미술</li>
-            </ul>
-          </div>
-        </div>
+
         <div class="filter_item">
           <p class="item_title">날짜</p>
           <div class="date_box">
@@ -130,6 +132,21 @@ export default {
         { id: 25, name: "중구" },
         { id: 26, name: "중랑구" },
       ],
+      selectLocate: "전체",
+      category: [
+        { id: 1, name: "전체", listCategory: "" },
+        { id: 2, name: "문화교양, 강좌", listCategory: "문화교양" },
+        { id: 3, name: "영화", listCategory: "영화" },
+        { id: 4, name: "전시, 미술", listCategory: "전시" },
+        { id: 5, name: "무용", listCategory: "무용" },
+        { id: 6, name: "연극", listCategory: "연극" },
+        { id: 7, name: "뮤지컬, 오페라", listCategory: "뮤지컬" },
+        { id: 8, name: "콘서트", listCategory: "콘서트" },
+        { id: 9, name: "독주 독창회", listCategory: "독주" },
+        { id: 10, name: "클래식", listCategory: "클래식" },
+        { id: 11, name: "국악", listCategory: "국악" },
+      ],
+      selectCategory: "전체",
     };
   },
   components: {
@@ -166,12 +183,32 @@ export default {
       this.searchResult.splice(0);
       let data = this.$store.state.cultureList;
 
-      for (let i = 0; i < data.length; i++) {
-        if (this.$store.state.cultureList[i].borough == this.area[index].name) {
-          this.searchResult.push(this.$store.state.cultureList[i]);
+      if (index == 0) {
+        this.searchResult = this.$store.state.cultureList.slice();
+      } else {
+        for (let i = 0; i < data.length; i++) {
+          if (
+            this.$store.state.cultureList[i].borough == this.area[index].name
+          ) {
+            this.searchResult.push(this.$store.state.cultureList[i]);
+          }
         }
       }
-      console.log(this.$store.state.cultureList);
+
+      this.selectLocate = this.area[index].name;
+    },
+    selectCulture: function (index) {
+      let category = this.category[index].listCategory;
+
+      this.$http.get(`/culture/category/${category}`).then((response) => {
+        this.$store.state.cultureList = response.data;
+        this.searchResult = this.$store.state.cultureList.slice();
+      });
+
+      this.$router.push({
+        name: "categoryList",
+        params: { category: this.category[index].listCategory },
+      });
     },
   },
 };

@@ -39,8 +39,8 @@ export default {
   data() {
     return {
       categoryItem: [
-        { item_num: 1, category: "전체", searchCategory: "전체" },
         { item_num: 2, category: "문화교양, 강좌", searchCategory: "문화교양" },
+        { item_num: 1, category: "독주 독창회", searchCategory: "독주" },
         { item_num: 3, category: "영화", searchCategory: "영화" },
         { item_num: 4, category: "전시, 미술", searchCategory: "전시" },
         { item_num: 5, category: "무용", searchCategory: "무용" },
