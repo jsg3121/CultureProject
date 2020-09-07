@@ -10,7 +10,7 @@
         <div class="filter_item">
           <p class="item_title">분류</p>
           <div class="select_box" @click="dropdown">
-            <p>{{selectCategory}}</p>
+            <p>{{this.$route.params.filter || "전체"}}</p>
             <ul class="select_option">
               <li
                 class="option"
@@ -59,7 +59,7 @@
     </div>
     <div v-if="searchResult.length != 0" class="culture_list">
       <article
-        v-for="(searchList, index) in searchResult"
+        v-for="(searchList, index) in pageList"
         :key="searchList.cultcode"
         class="culture_item"
         @click="submit(index)"
@@ -71,6 +71,27 @@
         <h1 class="culture_title">{{ searchList.title }}</h1>
         <h3 class="culture_date">기간 : {{ searchList.start_date }} ~ {{ searchList.end_date }}</h3>
       </article>
+    </div>
+    <div class="pagination">
+      <figure>
+        <img src="../assets/image/icon-page-1@2x.png" @click="prev10" alt />
+      </figure>
+      <figure>
+        <img src="../assets/image/icon-page-2@2x.png" @click="prevPage" alt />
+      </figure>
+      <ul class="pageNum">
+        <li
+          v-for="index in parseInt(searchResult.length / 9) + 1 > 10? 10 : parseInt(searchResult.length / 9) + 1"
+          :key="index"
+          @click="pageMove(index)"
+        >{{numbering(index)}}</li>
+      </ul>
+      <figure>
+        <img src="../assets/image/icon-page-3@2x.png" @click="nextPage" alt />
+      </figure>
+      <figure>
+        <img src="../assets/image/icon-page-4@2x.png" @click="next10" alt />
+      </figure>
     </div>
   </div>
 </template>
@@ -90,6 +111,7 @@ export default {
       this.$http.get(`/culture/category/${category}`).then((response) => {
         this.$store.state.cultureList = response.data;
         this.searchResult = this.$store.state.cultureList.slice();
+        this.pageList = this.searchResult.slice(0, 9);
       });
     } else if (category === undefined) {
       this.searchVal = searchText;
@@ -97,6 +119,7 @@ export default {
       this.$http.get(`/culture/search/${searchText}`).then((response) => {
         this.$store.state.cultureList = response.data;
         this.searchResult = this.$store.state.cultureList.slice();
+        this.pageList = this.searchResult.slice(0, 9);
       });
     }
   },
@@ -104,6 +127,9 @@ export default {
     return {
       searchVal: "",
       searchResult: [],
+      pageList: [],
+      pageIndex: 1,
+      pageNumbering: 0,
       area: [
         { id: 1, name: "전체" },
         { id: 2, name: "강남구" },
@@ -185,16 +211,17 @@ export default {
 
       if (index == 0) {
         this.searchResult = this.$store.state.cultureList.slice();
+        this.pageList = this.searchResult.slice(0, 9);
       } else {
         for (let i = 0; i < data.length; i++) {
           if (
             this.$store.state.cultureList[i].borough == this.area[index].name
           ) {
             this.searchResult.push(this.$store.state.cultureList[i]);
+            this.pageList = this.searchResult.slice(0, 9);
           }
         }
       }
-
       this.selectLocate = this.area[index].name;
     },
     selectCulture: function (index) {
@@ -207,8 +234,59 @@ export default {
 
       this.$router.push({
         name: "categoryList",
-        params: { category: this.category[index].listCategory },
+        params: {
+          category: this.category[index].listCategory,
+          filter: this.category[index].name,
+        },
       });
+    },
+    pageMove: function (index) {
+      this.pageList.splice(0);
+      this.pageList = this.searchResult.slice(
+        (index - 1) * 9,
+        (index - 1) * 9 + 9
+      );
+      this.pageIndex = this.pageIndex + index - 1;
+    },
+    nextPage: function () {
+      if (this.pageIndex < parseInt(this.searchResult.length / 9) + 1) {
+        let index = this.pageIndex;
+
+        this.pageList.splice(0);
+        this.pageList = this.searchResult.slice(index * 9, index * 9 + 9);
+        this.pageIndex++;
+      }
+    },
+    prevPage: function () {
+      if (this.pageIndex > 1) {
+        let index = this.pageIndex;
+
+        this.pageList.splice(0);
+        this.pageList = this.searchResult.slice(
+          (index - 2) * 9,
+          (index - 2) * 9 + 9
+        );
+        this.pageIndex--;
+      }
+    },
+    numbering: function (index) {
+      return index + this.pageNumbering;
+    },
+    next10: function () {
+      this.pageNumbering = (parseInt(this.pageIndex / 10) + 1) * 10;
+      this.pageIndex = (parseInt(this.pageIndex / 10) + 1) * 10 + 1;
+
+      let index = this.pageIndex;
+
+      this.pageList.splice(0);
+      this.pageList = this.searchResult.slice(
+        (index - 1) * 9,
+        (index - 1) * 9 + 9
+      );
+    },
+    prev10: function () {
+      this.pageNumbering = parseInt(this.pageIndex / 10) * 10;
+      this.pageIndex = parseInt(this.pageIndex / 10) * 10 + 1;
     },
   },
 };
@@ -395,6 +473,46 @@ export default {
           margin-top: 0.3125rem;
           background-color: #000000;
         }
+      }
+    }
+  }
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5rem;
+
+    figure {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.25rem;
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    ul {
+      height: 100%;
+      margin: 0 0.25rem;
+      display: flex;
+      align-items: center;
+
+      li {
+        height: 100%;
+        min-width: 1.5625rem;
+        margin: 0 0.5rem;
+        cursor: pointer;
+        font-size: 0.96875rem;
+        line-height: 1.6;
+        font-weight: 800;
+        text-align: center;
+        color: #373232;
       }
     }
   }
