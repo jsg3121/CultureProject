@@ -24,7 +24,7 @@
         </li>
         <li v-if="culture.performer != ''">
           <h5>작가</h5>
-          <p>{{culture.performer}}</p>
+          <p v-html="culture.performer"></p>
         </li>
         <li>
           <h5>이용대상</h5>
@@ -46,7 +46,7 @@
       <div class="description_introduce">
         <p v-if="culture.introduction != ''">{{culture.introduction}}</p>
       </div>
-      <a :href="culture.homepageLink" class="hompage_link">사이트로 이동</a>
+      <a :href="culture.homepageLink" class="hompage_link" target="_blank">사이트로 이동</a>
     </div>
     <vueFooter></vueFooter>
   </div>
@@ -127,6 +127,8 @@ export default {
   }
 
   .culture_description {
+    margin-bottom: 42.8125rem;
+
     .description_list {
       padding-bottom: 3.5625rem;
       width: 100%;

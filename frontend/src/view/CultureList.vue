@@ -35,7 +35,6 @@
             </ul>
           </div>
         </div>
-
         <div class="filter_item">
           <p class="item_title">날짜</p>
           <div class="date_box">
@@ -84,6 +83,7 @@
           v-for="index in parseInt(searchResult.length / 9) + 1 > 10? pageing(searchResult.length) : parseInt(searchResult.length / 9) + 1"
           :key="index"
           @click="pageMove(index)"
+          :id="'pageNumber' + numbering(index)"
         >{{numbering(index)}}</li>
       </ul>
       <figure>
@@ -242,6 +242,7 @@ export default {
         },
       });
     },
+
     pageMove: function (index) {
       this.pageIndex = index + this.pageNumbering;
 
@@ -250,12 +251,26 @@ export default {
         (this.pageIndex - 1) * 9,
         (this.pageIndex - 1) * 9 + 9
       );
+
+      let list = document.querySelectorAll(".pageNum li");
+      for (let i = 0; i < list.length; i++) {
+        list[i].classList.remove("active");
+      }
+
+      list[index - 1].classList.add("active");
     },
     nextPage: function () {
       if (this.pageIndex < parseInt(this.searchResult.length / 9) + 1) {
         if (this.pageIndex % 10 == 0) {
           this.pageNumbering += 10;
         }
+
+        let list = document.querySelectorAll(".pageNum li");
+        for (let i = 0; i < list.length; i++) {
+          list[i].classList.remove("active");
+        }
+
+        list[this.pageIndex % 10].classList.add("active");
 
         let index = this.pageIndex;
 
@@ -278,26 +293,16 @@ export default {
           (index - 2) * 9 + 9
         );
         this.pageIndex--;
-      }
-    },
-    numbering: function (index) {
-      return index + this.pageNumbering;
-    },
-    pageing: function (length) {
-      if (
-        this.pageNumbering <
-        (Math.ceil(this.searchResult.length / 100) - 1) * 10
-      ) {
-        return 10;
-      } else if (
-        this.pageNumbering ==
-        (Math.ceil(this.searchResult.length / 100) - 1) * 10
-      ) {
-        return (
-          10 -
-          (Math.ceil(this.searchResult.length / 100) * 10 -
-            (parseInt(this.searchResult.length / 9) + 1))
-        );
+
+        let list = document.querySelectorAll(".pageNum li");
+        for (let i = 0; i < list.length; i++) {
+          list[i].classList.remove("active");
+        }
+        if (this.pageIndex % 10 == 0) {
+          list[list.length - 1].classList.add("active");
+        } else {
+          list[(this.pageIndex % 10) - 1].classList.add("active");
+        }
       }
     },
     next10: function () {
@@ -329,6 +334,26 @@ export default {
         this.pageList = this.searchResult.slice(
           (index - 1) * 9,
           (index - 1) * 9 + 9
+        );
+      }
+    },
+    numbering: function (index) {
+      return index + this.pageNumbering;
+    },
+    pageing: function (length) {
+      if (
+        this.pageNumbering <
+        (Math.ceil(this.searchResult.length / 100) - 1) * 10
+      ) {
+        return 10;
+      } else if (
+        this.pageNumbering ==
+        (Math.ceil(this.searchResult.length / 100) - 1) * 10
+      ) {
+        return (
+          10 -
+          (Math.ceil(this.searchResult.length / 100) * 10 -
+            (parseInt(this.searchResult.length / 9) + 1))
         );
       }
     },
@@ -559,6 +584,10 @@ export default {
         font-weight: 800;
         text-align: center;
         color: #373232;
+
+        &.active {
+          color: #ff8604;
+        }
       }
     }
   }
