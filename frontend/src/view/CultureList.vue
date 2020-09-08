@@ -81,7 +81,7 @@
       </figure>
       <ul class="pageNum">
         <li
-          v-for="index in parseInt(searchResult.length / 9) + 1 > 10? 10 : parseInt(searchResult.length / 9) + 1"
+          v-for="index in parseInt(searchResult.length / 9) + 1 > 10? pageing(searchResult.length) : parseInt(searchResult.length / 9) + 1"
           :key="index"
           @click="pageMove(index)"
         >{{numbering(index)}}</li>
@@ -93,13 +93,14 @@
         <img src="../assets/image/icon-page-4@2x.png" @click="next10" alt />
       </figure>
     </div>
+    <vueFooter></vueFooter>
   </div>
 </template>
 
 <script>
 import vueHeader from "../components/Header";
 import slideVue from "../components/MainSlide";
-
+import vueFooter from "../components/Footer";
 export default {
   created() {
     let searchText = this.$route.params.searchText;
@@ -178,6 +179,7 @@ export default {
   components: {
     vueHeader,
     slideVue,
+    vueFooter,
   },
   methods: {
     inputSearch: function (event) {
@@ -241,15 +243,20 @@ export default {
       });
     },
     pageMove: function (index) {
+      this.pageIndex = index + this.pageNumbering;
+
       this.pageList.splice(0);
       this.pageList = this.searchResult.slice(
-        (index - 1) * 9,
-        (index - 1) * 9 + 9
+        (this.pageIndex - 1) * 9,
+        (this.pageIndex - 1) * 9 + 9
       );
-      this.pageIndex = this.pageIndex + index - 1;
     },
     nextPage: function () {
       if (this.pageIndex < parseInt(this.searchResult.length / 9) + 1) {
+        if (this.pageIndex % 10 == 0) {
+          this.pageNumbering += 10;
+        }
+
         let index = this.pageIndex;
 
         this.pageList.splice(0);
@@ -259,6 +266,10 @@ export default {
     },
     prevPage: function () {
       if (this.pageIndex > 1) {
+        if (this.pageIndex % 10 == 1) {
+          this.pageNumbering -= 10;
+        }
+
         let index = this.pageIndex;
 
         this.pageList.splice(0);
@@ -272,21 +283,54 @@ export default {
     numbering: function (index) {
       return index + this.pageNumbering;
     },
+    pageing: function (length) {
+      if (
+        this.pageNumbering <
+        (Math.ceil(this.searchResult.length / 100) - 1) * 10
+      ) {
+        return 10;
+      } else if (
+        this.pageNumbering ==
+        (Math.ceil(this.searchResult.length / 100) - 1) * 10
+      ) {
+        return (
+          10 -
+          (Math.ceil(this.searchResult.length / 100) * 10 -
+            (parseInt(this.searchResult.length / 9) + 1))
+        );
+      }
+    },
     next10: function () {
-      this.pageNumbering = (parseInt(this.pageIndex / 10) + 1) * 10;
-      this.pageIndex = (parseInt(this.pageIndex / 10) + 1) * 10 + 1;
+      if (
+        parseInt(this.searchResult.length / 9) + 1 > 10 &&
+        this.pageNumbering <
+          (Math.ceil(this.searchResult.length / 100) - 1) * 10
+      ) {
+        this.pageNumbering = this.pageNumbering + 10;
+        this.pageIndex = this.pageNumbering + 1;
 
-      let index = this.pageIndex;
+        let index = this.pageIndex;
 
-      this.pageList.splice(0);
-      this.pageList = this.searchResult.slice(
-        (index - 1) * 9,
-        (index - 1) * 9 + 9
-      );
+        this.pageList.splice(0);
+        this.pageList = this.searchResult.slice(
+          (index - 1) * 9,
+          (index - 1) * 9 + 9
+        );
+      }
     },
     prev10: function () {
-      this.pageNumbering = parseInt(this.pageIndex / 10) * 10;
-      this.pageIndex = parseInt(this.pageIndex / 10) * 10 + 1;
+      if (this.pageNumbering > 0) {
+        this.pageNumbering = this.pageNumbering - 10;
+        this.pageIndex = this.pageNumbering + 1;
+
+        let index = this.pageIndex;
+
+        this.pageList.splice(0);
+        this.pageList = this.searchResult.slice(
+          (index - 1) * 9,
+          (index - 1) * 9 + 9
+        );
+      }
     },
   },
 };
@@ -400,6 +444,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    align-content: start;
 
     .culture_item {
       width: 18.5rem;
@@ -481,6 +526,7 @@ export default {
     align-items: center;
     justify-content: center;
     height: 1.5rem;
+    margin-bottom: 16.625rem;
 
     figure {
       width: 1.5rem;

@@ -48,14 +48,14 @@
       </div>
       <a :href="culture.homepageLink" class="hompage_link">사이트로 이동</a>
     </div>
-    <history></history>
+    <vueFooter></vueFooter>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import history from "../components/History";
 import vueHeader from "../components/Header";
+import vueFooter from "../components/Footer";
 
 export default {
   created() {
@@ -73,8 +73,8 @@ export default {
   },
   methods: {},
   components: {
-    history,
     vueHeader,
+    vueFooter,
   },
 };
 </script>
@@ -135,13 +135,14 @@ export default {
       margin-bottom: 3.5rem;
 
       li {
-        height: 3.4375rem;
+        min-height: 3.4375rem;
         width: 100%;
         max-width: 58.5rem;
         margin: 0 auto;
         display: flex;
         align-items: center;
         border-bottom: 1px solid #000000;
+        padding: 0.75rem 0;
 
         h5 {
           width: 9.375rem;
@@ -152,9 +153,11 @@ export default {
         }
 
         p {
+          width: calc(100% - 9.375rem);
           font-size: 1.25rem;
           font-weight: normal;
           text-align: left;
+          line-height: 1.5;
           color: #373232;
         }
       }

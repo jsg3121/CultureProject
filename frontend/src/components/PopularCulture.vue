@@ -95,7 +95,7 @@ export default {
 <style lang="scss">
 .popular_container {
   width: 100%;
-  height: 118.0625rem;
+  margin-bottom: 15.1875rem;
 
   .program {
     h3 {
