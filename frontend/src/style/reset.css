@@ -8,15 +8,15 @@ html, body {
 	vertical-align: baseline;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1440px) {
 	html, body {
-		font-size: 14px;
+		font-size: 15px;
 	}
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1280px) {
 	html, body {
-		font-size: 12px;
+		font-size: 13px;
 	}
 }
 

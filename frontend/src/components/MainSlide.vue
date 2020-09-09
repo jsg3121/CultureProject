@@ -164,7 +164,7 @@ export default {
           text-align: right;
           position: absolute;
           top: 15.0625rem;
-          left: 33.125rem;
+          left: 21.6%;
           border-bottom: 0.0625rem solid #ffffff;
           padding-bottom: 0.25rem;
           cursor: pointer;
@@ -177,9 +177,16 @@ export default {
           text-align: left;
           position: absolute;
           top: 18.125rem;
-          left: 33.125rem;
+          left: 21.6%;
           line-height: 1.2;
           cursor: pointer;
+        }
+
+        @media screen and (max-width: 1280px) {
+          h2,
+          h4 {
+            left: 15%;
+          }
         }
 
         .slide-description {

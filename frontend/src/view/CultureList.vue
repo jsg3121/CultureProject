@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <vueHeader></vueHeader>
+    <history></history>
     <div class="detail_search">
       <div class="searchResult">
         <h4>{{ searchVal }}</h4>
@@ -80,10 +81,9 @@
       </figure>
       <ul class="pageNum">
         <li
-          v-for="index in parseInt(searchResult.length / 9) + 1 > 10? pageing(searchResult.length) : parseInt(searchResult.length / 9) + 1"
-          :key="index"
           @click="pageMove(index)"
-          :id="'pageNumber' + numbering(index)"
+          v-for="index in parseInt(searchResult.length / 9) + 1 > 10? pageing() : parseInt(searchResult.length / 9) + 1"
+          :key="index"
         >{{numbering(index)}}</li>
       </ul>
       <figure>
@@ -101,6 +101,8 @@
 import vueHeader from "../components/Header";
 import slideVue from "../components/MainSlide";
 import vueFooter from "../components/Footer";
+import history from "../components/History";
+
 export default {
   created() {
     let searchText = this.$route.params.searchText;
@@ -123,6 +125,10 @@ export default {
         this.pageList = this.searchResult.slice(0, 9);
       });
     }
+  },
+  mounted() {
+    let list = document.querySelectorAll(".pageNum li");
+    list[0].classList.add("active");
   },
   data() {
     return {
@@ -180,6 +186,7 @@ export default {
     vueHeader,
     slideVue,
     vueFooter,
+    history,
   },
   methods: {
     inputSearch: function (event) {
@@ -204,7 +211,7 @@ export default {
     submit: function (index) {
       this.$router.push({
         name: "detailculture",
-        params: { detailcode: this.searchResult[index].cultcode },
+        params: { detailcode: this.pageList[index].cultcode },
       });
     },
     selectArea: function (index) {
@@ -242,7 +249,6 @@ export default {
         },
       });
     },
-
     pageMove: function (index) {
       this.pageIndex = index + this.pageNumbering;
 
@@ -321,6 +327,12 @@ export default {
           (index - 1) * 9,
           (index - 1) * 9 + 9
         );
+
+        let list = document.querySelectorAll(".pageNum li");
+        for (let i = 0; i < list.length; i++) {
+          list[i].classList.remove("active");
+        }
+        list[0].classList.add("active");
       }
     },
     prev10: function () {
@@ -335,12 +347,18 @@ export default {
           (index - 1) * 9,
           (index - 1) * 9 + 9
         );
+
+        let list = document.querySelectorAll(".pageNum li");
+        for (let i = 0; i < list.length; i++) {
+          list[i].classList.remove("active");
+        }
+        list[0].classList.add("active");
       }
     },
     numbering: function (index) {
       return index + this.pageNumbering;
     },
-    pageing: function (length) {
+    pageing: function () {
       if (
         this.pageNumbering <
         (Math.ceil(this.searchResult.length / 100) - 1) * 10
@@ -557,6 +575,7 @@ export default {
       width: 1.5rem;
       height: 1.5rem;
       margin-right: 0.25rem;
+      cursor: pointer;
 
       &:nth-child(2n) {
         margin-right: 0;
