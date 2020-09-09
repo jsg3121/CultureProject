@@ -61,6 +61,8 @@ export default {
         img {
           width: 100%;
           height: 100%;
+          object-fit: contain;
+          background-color: #ffffff;
         }
       }
     }
@@ -70,6 +72,12 @@ export default {
 @media screen and (max-width: 1880px) {
   .history-container {
     right: 3%;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .history-container {
+    display: none !important;
   }
 }
 </style>
