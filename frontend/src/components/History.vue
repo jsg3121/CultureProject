@@ -2,7 +2,7 @@
   <div class="history-container">
     <h4>최근 본 게시물</h4>
     <ul>
-      <li v-for="(idx, i) in history" :key="i">
+      <li v-for="(idx, i) in history" :key="i" @click="submit(idx.cultcode)">
         <figure>
           <img :src="idx.org_img" alt />
         </figure>
@@ -29,6 +29,12 @@ export default {
         document.querySelector(".history-container").style.top =
           scrollTop / 16 + 8 + "rem";
       }
+    },
+    submit: function (cultcode) {
+      this.$router.push({
+        name: "detailculture",
+        params: { detailcode: cultcode },
+      });
     },
   },
 };
