@@ -15,11 +15,21 @@
 export default {
   created() {
     this.history = this.$store.state.history;
+    window.addEventListener("scroll", this.moveHistory);
   },
   data() {
     return {
       history: [],
     };
+  },
+  methods: {
+    moveHistory: function () {
+      let scrollTop = window.scrollY || document.documentElement.scrollTop;
+      if (scrollTop > 226) {
+        document.querySelector(".history-container").style.top =
+          scrollTop / 16 + 8 + "rem";
+      }
+    },
   },
 };
 </script>
@@ -27,13 +37,14 @@ export default {
 <style lang="scss">
 .history-container {
   width: 8.75rem;
-  height: 32.375rem;
-  box-shadow: 0px 5px 12.7px 0.3px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 0.3125rem 0.3125rem 0.01875rem rgba(0, 0, 0, 0.18);
   background-color: #ffffff;
-  position: fixed;
-  z-index: 100;
+  position: absolute;
+  z-index: 50;
   right: 15%;
   top: 21.375rem;
+  padding-bottom: 0.625rem;
+  transition: 0.3s;
 
   h4 {
     font-size: 0.875rem;
@@ -44,20 +55,27 @@ export default {
     color: #333333;
     margin-top: 0.75rem;
   }
+
   ul {
     width: 8rem;
-    height: 29.5rem;
-    background-color: #f3f2f2;
+    background-color: #dedede;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
     margin: 0.8125rem auto 0;
+    padding: 0.625rem 0;
 
     li {
+      margin-bottom: 0.625rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
       figure {
         width: 6.875rem;
         height: 8.75rem;
+        margin: 0 auto;
         img {
           width: 100%;
           height: 100%;
