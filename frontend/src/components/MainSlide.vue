@@ -27,7 +27,7 @@ export default {
           item_num: 1,
           src: require("../assets/image/main-slide-classic.png"),
           title: "클래식",
-          coment: "힘들고 지친일상 속에서<br>마음의 안식을 채워줍니다",
+          coment: "힘들고 지친 일상 속에서<br>마음의 안식을 채워줍니다",
           category_name: "클래식",
         },
         {
