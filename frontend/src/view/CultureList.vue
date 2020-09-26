@@ -4,35 +4,45 @@
     <history></history>
     <div class="detail_search">
       <div class="searchResult">
-        <h4>{{ searchVal }}</h4>
+        <h4>
+          {{ this.$route.params.filter || this.$store.state.cultureCategory }}
+        </h4>
         <p>&nbsp;에 관련된 문화행사를 찾았습니다.</p>
       </div>
       <div class="detail_filter">
         <div class="filter_item">
           <p class="item_title">분류</p>
           <div class="select_box" @click="dropdown">
-            <p>{{this.$route.params.filter || "전체"}}</p>
+            <p>
+              {{
+                this.$route.params.filter || this.$store.state.cultureCategory
+              }}
+            </p>
             <ul class="select_option">
               <li
                 class="option"
                 v-for="(item, index) in category"
                 :key="item.id"
                 @click="selectCulture(index)"
-              >{{item.name}}</li>
+              >
+                {{ item.name }}
+              </li>
             </ul>
           </div>
         </div>
         <div class="filter_item">
           <p class="item_title">지역</p>
           <div class="select_box" @click="dropdown">
-            <p>{{selectLocate}}</p>
+            <p>{{ selectLocate }}</p>
             <ul class="select_option">
               <li
                 class="option"
                 v-for="(item, index) in area"
                 :key="item.id"
                 @click="selectArea(index)"
-              >{{item.name}}</li>
+              >
+                {{ item.name }}
+              </li>
             </ul>
           </div>
         </div>
@@ -69,7 +79,9 @@
           <img :src="searchList.org_img" alt />
         </figure>
         <h1 class="culture_title">{{ searchList.title }}</h1>
-        <h3 class="culture_date">기간 : {{ searchList.start_date }} ~ {{ searchList.end_date }}</h3>
+        <h3 class="culture_date">
+          기간 : {{ searchList.start_date }} ~ {{ searchList.end_date }}
+        </h3>
       </article>
     </div>
     <div class="pagination">
@@ -82,9 +94,13 @@
       <ul class="pageNum">
         <li
           @click="pageMove(index)"
-          v-for="index in parseInt(searchResult.length / 9) + 1 > 10? pageing() : parseInt(searchResult.length / 9) + 1"
+          v-for="index in parseInt(searchResult.length / 9) + 1 > 10
+            ? pageing()
+            : parseInt(searchResult.length / 9) + 1"
           :key="index"
-        >{{numbering(index)}}</li>
+        >
+          {{ numbering(index) }}
+        </li>
       </ul>
       <figure>
         <img src="../assets/image/icon-page-3@2x.png" @click="nextPage" alt />
@@ -175,7 +191,7 @@ export default {
         { id: 6, name: "연극", listCategory: "연극" },
         { id: 7, name: "뮤지컬, 오페라", listCategory: "뮤지컬" },
         { id: 8, name: "콘서트", listCategory: "콘서트" },
-        { id: 9, name: "독주 독창회", listCategory: "독주" },
+        { id: 9, name: "독주, 독창회", listCategory: "독주" },
         { id: 10, name: "클래식", listCategory: "클래식" },
         { id: 11, name: "국악", listCategory: "국악" },
       ],

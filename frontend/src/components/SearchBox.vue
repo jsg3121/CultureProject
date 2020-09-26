@@ -22,11 +22,17 @@
       </div>
       <nav class="content_category">
         <ul class="category_list">
-          <li class="list_item" v-for="item in categoryItem" :key="item.item_num">
-            <router-link
+          <li
+            class="list_item"
+            v-for="item in categoryItem"
+            :key="item.item_num"
+          >
+            <button
               class="categoryLink"
-              :to="{name:'categoryList', params:{category: item.searchCategory}}"
-            >{{item.category}}</router-link>
+              @click="cultureCategory(item.item_num)"
+            >
+              {{ item.category }}
+            </button>
           </li>
         </ul>
       </nav>
@@ -39,8 +45,8 @@ export default {
   data() {
     return {
       categoryItem: [
-        { item_num: 2, category: "문화교양, 강좌", searchCategory: "문화교양" },
-        { item_num: 1, category: "독주 독창회", searchCategory: "독주" },
+        { item_num: 1, category: "문화교양, 강좌", searchCategory: "문화교양" },
+        { item_num: 2, category: "독주, 독창회", searchCategory: "독주" },
         { item_num: 3, category: "영화", searchCategory: "영화" },
         { item_num: 4, category: "전시, 미술", searchCategory: "전시" },
         { item_num: 5, category: "무용", searchCategory: "무용" },
@@ -63,6 +69,17 @@ export default {
         name: "cultureList",
         params: { searchText: this.searchText },
       });
+    },
+    cultureCategory: function (index) {
+      this.$router.push({
+        name: "categoryList",
+        params: { category: this.categoryItem[index - 1].searchCategory },
+      });
+      console.log(index);
+      this.$store.commit(
+        "cultureCategory",
+        this.categoryItem[index - 1].category
+      );
     },
   },
 };
@@ -155,6 +172,8 @@ export default {
             text-align: center;
             color: #333333;
             display: block;
+            border: 0;
+            background-color: transparent;
           }
         }
       }
