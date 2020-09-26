@@ -65,10 +65,14 @@ export default {
       this.searchText = text;
     },
     submit: function () {
-      this.$router.push({
-        name: "cultureList",
-        params: { searchText: this.searchText },
-      });
+      if (this.searchText == "") {
+        alert("검색어를 입력해주세요.");
+      } else {
+        this.$router.push({
+          name: "cultureList",
+          params: { searchText: this.searchText },
+        });
+      }
     },
     cultureCategory: function (index) {
       this.$router.push({
