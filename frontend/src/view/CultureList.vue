@@ -183,7 +183,7 @@ export default {
       ],
       selectLocate: "전체",
       category: [
-        { id: 1, name: "전체", listCategory: "" },
+        { id: 1, name: "전체", listCategory: "all" },
         { id: 2, name: "문화교양, 강좌", listCategory: "문화교양" },
         { id: 3, name: "영화", listCategory: "영화" },
         { id: 4, name: "전시, 미술", listCategory: "전시" },

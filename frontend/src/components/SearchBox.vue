@@ -148,7 +148,7 @@ export default {
         justify-content: space-between;
 
         li {
-          width: 8.75rem;
+          width: 19.8%;
           height: 3.375rem;
           border: solid 0.125rem #ffffff;
           background-color: #ffffff;

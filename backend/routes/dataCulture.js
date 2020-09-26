@@ -68,10 +68,15 @@ router.get("/search/:searchText", (req, res) => {
 router.get("/category/:categoryList", (req, res) => {
   const searchVal = req.params.categoryList;
 
-  const searchResult = dataCulture.filter((culture) => {
-    return culture.codename.toUpperCase().indexOf(searchVal) !== -1 || culture.codename.toLowerCase().indexOf(searchVal) !== -1;
-  });
-  res.send(searchResult);
+  console.log(searchVal);
+  if (searchVal !== "all") {
+    const searchResult = dataCulture.filter((culture) => {
+      return culture.codename.toUpperCase().indexOf(searchVal) !== -1 || culture.codename.toLowerCase().indexOf(searchVal) !== -1;
+    });
+    res.send(searchResult);
+  } else {
+    res.send(dataCulture);
+  }
 });
 
 module.exports = router;
