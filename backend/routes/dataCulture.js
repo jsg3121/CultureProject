@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
 
 router.get("/program", (req, res) => {
   const dataSort = dataCulture.sort((a, b) => {
-    return a.popular > b.popular ? -1 : a.name < b.name ? 1 : 0;
+    return a.popular > b.popular ? -1 : a.popular < b.popular ? 1 : 0;
   });
 
   let program = new Array();
@@ -20,25 +20,27 @@ router.get("/program", (req, res) => {
   res.send(program);
 });
 
+//whatsOn 랜덤으로 두개 뽑아서 화면에 표시하기
+
 router.get("/whatsOn", (req, res) => {
   let whatsOnData = new Array();
 
-  // for (let i = 0; ; i++) {
-  //   let random = Math.floor(Math.random() * dataCulture.length) + 1;
-  //   whatsOnData.push(dataCulture[random]);
+  for (let i = 0; ; i++) {
+    let random = Math.floor(Math.random() * dataCulture.length) + 1;
+    whatsOnData.push(dataCulture[random]);
 
-  //   if (whatsOnData[0].cultcode == parseInt.toString(random)) {
-  //     random = Math.floor(Math.random() * dataCulture.length) + 1;
-  //     whatsOnData.push(dataCulture[random]);
-  //   }
+    if (whatsOnData[0].cultcode == parseInt.toString(random)) {
+      random = Math.floor(Math.random() * dataCulture.length) + 1;
+      whatsOnData.push(dataCulture[random]);
+    }
 
-  //   if (whatsOnData.length == 2) {
-  //     break;
-  //   }
-  // }
+    if (whatsOnData.length == 2) {
+      break;
+    }
+  }
 
-  whatsOnData.push(dataCulture[1113]);
-  whatsOnData.push(dataCulture[243]);
+  // whatsOnData.push(dataCulture[1113]);
+  // whatsOnData.push(dataCulture[243]);
 
   res.send(whatsOnData);
 });
@@ -68,14 +70,27 @@ router.get("/search/:searchText", (req, res) => {
 router.get("/category/:categoryList", (req, res) => {
   const searchVal = req.params.categoryList;
 
-  console.log(searchVal);
+  const nameSort = dataCulture.sort((a, b) => {
+    let titleA = a.title.toLowerCase(),
+      titleB = b.title.toLowerCase();
+
+    if (titleA > titleB) {
+      return -1;
+    } else if (titleA < titleB) {
+      return 1;
+    } else {
+      // 이름이 같을 경우
+      return 0;
+    }
+  });
+
   if (searchVal !== "all") {
-    const searchResult = dataCulture.filter((culture) => {
+    const searchResult = nameSort.filter((culture) => {
       return culture.codename.toUpperCase().indexOf(searchVal) !== -1 || culture.codename.toLowerCase().indexOf(searchVal) !== -1;
     });
     res.send(searchResult);
   } else {
-    res.send(dataCulture);
+    res.send(nameSort);
   }
 });
 

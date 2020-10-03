@@ -61,7 +61,8 @@
       </div>
       <div class="select_box" @click="dropdown">
         <p>이름순으로 보기</p>
-        <ul class="select_option">
+        <ul class="select_option" @click="selectSort">
+          <li class="option">이름순으로 보기</li>
           <li class="option">장소순으로 보기</li>
           <li class="option">기간순으로 보기</li>
         </ul>
@@ -264,6 +265,27 @@ export default {
           filter: this.category[index].name,
         },
       });
+    },
+    selectSort: function (event) {
+      let sortList = document.querySelectorAll(
+        ".search_list .select_box .select_option li"
+      );
+
+      let sortVal = document.querySelector(".search_list .select_box > p");
+      sortVal.innerHTML = event.target.innerHTML;
+
+      this.searchResult = this.searchResult.sort((a, b) => {
+        if (a.place < b.place) {
+          return -1;
+        } else if (a.place > b.place) {
+          return 1;
+        } else {
+          // 이름이 같을 경우
+          return 0;
+        }
+      });
+
+      console.log(this.searchResult);
     },
     pageMove: function (index) {
       this.pageIndex = index + this.pageNumbering;
