@@ -4,47 +4,19 @@
     <history></history>
     <div class="detail_search">
       <div class="searchResult">
-        <h4>
+        <!-- <h4>
           {{ this.$route.params.filter || this.$store.state.cultureCategory }}
-        </h4>
+        </h4> -->
         <p>&nbsp;에 관련된 문화행사를 찾았습니다.</p>
       </div>
       <div class="detail_filter">
         <div class="filter_item">
           <p class="item_title">분류</p>
-          <div class="select_box" @click="dropdown">
-            <p>
-              {{
-                this.$route.params.filter || this.$store.state.cultureCategory
-              }}
-            </p>
-            <ul class="select_option">
-              <li
-                class="option"
-                v-for="(item, index) in category"
-                :key="item.id"
-                @click="selectCulture(index)"
-              >
-                {{ item.name }}
-              </li>
-            </ul>
-          </div>
+          <dropdown :data="'category'"></dropdown>
         </div>
         <div class="filter_item">
           <p class="item_title">지역</p>
-          <div class="select_box" @click="dropdown">
-            <p>{{ selectLocate }}</p>
-            <ul class="select_option">
-              <li
-                class="option"
-                v-for="(item, index) in area"
-                :key="item.id"
-                @click="selectArea(index)"
-              >
-                {{ item.name }}
-              </li>
-            </ul>
-          </div>
+          <dropdown :data="'area'"></dropdown>
         </div>
         <div class="filter_item">
           <p class="item_title">날짜</p>
@@ -59,14 +31,14 @@
         <h3>[ PROGRAM ]</h3>
         <h3 class="list_length">[{{ this.searchResult.length }}]</h3>
       </div>
-      <div class="select_box" @click="dropdown">
+      <!-- <div class="select_box" @click="dropdown">
         <p>이름순으로 보기</p>
         <ul class="select_option" @click="selectSort">
           <li class="option">이름순으로 보기</li>
           <li class="option">장소순으로 보기</li>
           <li class="option">기간순으로 보기</li>
         </ul>
-      </div>
+      </div> -->
     </div>
     <div v-if="searchResult.length != 0" class="culture_list">
       <article
@@ -85,31 +57,7 @@
         </h3>
       </article>
     </div>
-    <div class="pagination">
-      <figure>
-        <img src="../assets/image/icon-page-1@2x.png" @click="prev10" alt />
-      </figure>
-      <figure>
-        <img src="../assets/image/icon-page-2@2x.png" @click="prevPage" alt />
-      </figure>
-      <ul class="pageNum">
-        <li
-          @click="pageMove(index)"
-          v-for="index in parseInt(searchResult.length / 9) + 1 > 10
-            ? pageing()
-            : parseInt(searchResult.length / 9) + 1"
-          :key="index"
-        >
-          {{ numbering(index) }}
-        </li>
-      </ul>
-      <figure>
-        <img src="../assets/image/icon-page-3@2x.png" @click="nextPage" alt />
-      </figure>
-      <figure>
-        <img src="../assets/image/icon-page-4@2x.png" @click="next10" alt />
-      </figure>
-    </div>
+    <!-- <pagination :resultLength="this.$store.state.cultureList"></pagination> -->
     <vueFooter></vueFooter>
   </div>
 </template>
@@ -119,18 +67,21 @@ import vueHeader from "../components/Header";
 import slideVue from "../components/MainSlide";
 import vueFooter from "../components/Footer";
 import history from "../components/History";
+import pagination from "../components/Pagination";
+import dropdown from "../components/Dropdown";
 
 export default {
   created() {
+    // console.log("부모 1");
     let searchText = this.$route.params.searchText;
     let category = this.$route.params.category;
-
     if (searchText === undefined) {
-      this.searchVal = category;
-
       this.$http.get(`/culture/category/${category}`).then((response) => {
         this.$store.state.cultureList = response.data;
-        this.searchResult = this.$store.state.cultureList.slice();
+        // this.$store.commit("cultureList", response.data);
+        // console.log("부모 2");
+
+        this.searchResult = this.$store.state.cultureList;
         this.pageList = this.searchResult.slice(0, 9);
       });
     } else if (category === undefined) {
@@ -138,15 +89,21 @@ export default {
 
       this.$http.get(`/culture/search/${searchText}`).then((response) => {
         this.$store.state.cultureList = response.data;
-        this.searchResult = this.$store.state.cultureList.slice();
+        this.searchResult = this.$store.state.cultureList;
         this.pageList = this.searchResult.slice(0, 9);
       });
     }
+    // console.log("부모 3");
   },
-  mounted() {
-    let list = document.querySelectorAll(".pageNum li");
-    list[0].classList.add("active");
-  },
+  // beforeMount() {
+  //   console.log("부모 4");
+  // },
+  // mounted() {
+  //   console.log("부모 5");
+  // },
+  // updated() {
+  //   console.log("부모 6");
+  // },
   data() {
     return {
       searchVal: "",
@@ -154,48 +111,7 @@ export default {
       pageList: [],
       pageIndex: 1,
       pageNumbering: 0,
-      area: [
-        { id: 1, name: "전체" },
-        { id: 2, name: "강남구" },
-        { id: 3, name: "강동구" },
-        { id: 4, name: "강북구" },
-        { id: 5, name: "강서구" },
-        { id: 6, name: "관악구" },
-        { id: 7, name: "광진구" },
-        { id: 8, name: "구로구" },
-        { id: 9, name: "금천구" },
-        { id: 10, name: "노원구" },
-        { id: 11, name: "도봉구" },
-        { id: 12, name: "동대문구" },
-        { id: 13, name: "동작구" },
-        { id: 14, name: "마포구" },
-        { id: 15, name: "서대문구" },
-        { id: 16, name: "서초구" },
-        { id: 17, name: "성동구" },
-        { id: 18, name: "성북구" },
-        { id: 19, name: "송파구" },
-        { id: 20, name: "양천구" },
-        { id: 21, name: "영등포구" },
-        { id: 22, name: "용산구" },
-        { id: 23, name: "은평구" },
-        { id: 24, name: "종로구" },
-        { id: 25, name: "중구" },
-        { id: 26, name: "중랑구" },
-      ],
       selectLocate: "전체",
-      category: [
-        { id: 1, name: "전체", listCategory: "all" },
-        { id: 2, name: "문화교양, 강좌", listCategory: "문화교양" },
-        { id: 3, name: "영화", listCategory: "영화" },
-        { id: 4, name: "전시, 미술", listCategory: "전시" },
-        { id: 5, name: "무용", listCategory: "무용" },
-        { id: 6, name: "연극", listCategory: "연극" },
-        { id: 7, name: "뮤지컬, 오페라", listCategory: "뮤지컬" },
-        { id: 8, name: "콘서트", listCategory: "콘서트" },
-        { id: 9, name: "독주, 독창회", listCategory: "독주" },
-        { id: 10, name: "클래식", listCategory: "클래식" },
-        { id: 11, name: "국악", listCategory: "국악" },
-      ],
       selectCategory: "전체",
     };
   },
@@ -204,66 +120,18 @@ export default {
     slideVue,
     vueFooter,
     history,
+    pagination,
+    dropdown,
   },
   methods: {
     inputSearch: function (event) {
       let text = event.target.value;
       this.searchVal = text;
     },
-    dropdown: function (event) {
-      let drop = event.target;
-      let selectBox = document.querySelectorAll(".select_box");
-
-      if (drop.classList.contains("select")) {
-        drop.classList.remove("select");
-      } else {
-        for (let i = 0; i < selectBox.length; i++) {
-          if (selectBox[i].classList.contains("select")) {
-            selectBox[i].classList.remove("select");
-          }
-        }
-        drop.classList.add("select");
-      }
-    },
     submit: function (index) {
       this.$router.push({
         name: "detailculture",
         params: { detailcode: this.pageList[index].cultcode },
-      });
-    },
-    selectArea: function (index) {
-      this.searchResult.splice(0);
-      let data = this.$store.state.cultureList;
-
-      if (index == 0) {
-        this.searchResult = this.$store.state.cultureList.slice();
-        this.pageList = this.searchResult.slice(0, 9);
-      } else {
-        for (let i = 0; i < data.length; i++) {
-          if (
-            this.$store.state.cultureList[i].borough == this.area[index].name
-          ) {
-            this.searchResult.push(this.$store.state.cultureList[i]);
-            this.pageList = this.searchResult.slice(0, 9);
-          }
-        }
-      }
-      this.selectLocate = this.area[index].name;
-    },
-    selectCulture: function (index) {
-      let category = this.category[index].listCategory;
-
-      this.$http.get(`/culture/category/${category}`).then((response) => {
-        this.$store.state.cultureList = response.data;
-        this.searchResult = this.$store.state.cultureList.slice();
-      });
-
-      this.$router.push({
-        name: "categoryList",
-        params: {
-          category: this.category[index].listCategory,
-          filter: this.category[index].name,
-        },
       });
     },
     selectSort: function (event) {
@@ -286,132 +154,6 @@ export default {
       });
 
       console.log(this.searchResult);
-    },
-    pageMove: function (index) {
-      this.pageIndex = index + this.pageNumbering;
-
-      this.pageList.splice(0);
-      this.pageList = this.searchResult.slice(
-        (this.pageIndex - 1) * 9,
-        (this.pageIndex - 1) * 9 + 9
-      );
-
-      let list = document.querySelectorAll(".pageNum li");
-      for (let i = 0; i < list.length; i++) {
-        list[i].classList.remove("active");
-      }
-
-      list[index - 1].classList.add("active");
-    },
-    nextPage: function () {
-      if (this.pageIndex < parseInt(this.searchResult.length / 9) + 1) {
-        if (this.pageIndex % 10 == 0) {
-          this.pageNumbering += 10;
-        }
-
-        let list = document.querySelectorAll(".pageNum li");
-        for (let i = 0; i < list.length; i++) {
-          list[i].classList.remove("active");
-        }
-
-        list[this.pageIndex % 10].classList.add("active");
-
-        let index = this.pageIndex;
-
-        this.pageList.splice(0);
-        this.pageList = this.searchResult.slice(index * 9, index * 9 + 9);
-        this.pageIndex++;
-      }
-    },
-    prevPage: function () {
-      if (this.pageIndex > 1) {
-        if (this.pageIndex % 10 == 1) {
-          this.pageNumbering -= 10;
-        }
-
-        let index = this.pageIndex;
-
-        this.pageList.splice(0);
-        this.pageList = this.searchResult.slice(
-          (index - 2) * 9,
-          (index - 2) * 9 + 9
-        );
-        this.pageIndex--;
-
-        let list = document.querySelectorAll(".pageNum li");
-        for (let i = 0; i < list.length; i++) {
-          list[i].classList.remove("active");
-        }
-        if (this.pageIndex % 10 == 0) {
-          list[list.length - 1].classList.add("active");
-        } else {
-          list[(this.pageIndex % 10) - 1].classList.add("active");
-        }
-      }
-    },
-    next10: function () {
-      if (
-        parseInt(this.searchResult.length / 9) + 1 > 10 &&
-        this.pageNumbering <
-          (Math.ceil(this.searchResult.length / 100) - 1) * 10
-      ) {
-        this.pageNumbering = this.pageNumbering + 10;
-        this.pageIndex = this.pageNumbering + 1;
-
-        let index = this.pageIndex;
-
-        this.pageList.splice(0);
-        this.pageList = this.searchResult.slice(
-          (index - 1) * 9,
-          (index - 1) * 9 + 9
-        );
-
-        let list = document.querySelectorAll(".pageNum li");
-        for (let i = 0; i < list.length; i++) {
-          list[i].classList.remove("active");
-        }
-        list[0].classList.add("active");
-      }
-    },
-    prev10: function () {
-      if (this.pageNumbering > 0) {
-        this.pageNumbering = this.pageNumbering - 10;
-        this.pageIndex = this.pageNumbering + 1;
-
-        let index = this.pageIndex;
-
-        this.pageList.splice(0);
-        this.pageList = this.searchResult.slice(
-          (index - 1) * 9,
-          (index - 1) * 9 + 9
-        );
-
-        let list = document.querySelectorAll(".pageNum li");
-        for (let i = 0; i < list.length; i++) {
-          list[i].classList.remove("active");
-        }
-        list[0].classList.add("active");
-      }
-    },
-    numbering: function (index) {
-      return index + this.pageNumbering;
-    },
-    pageing: function () {
-      if (
-        this.pageNumbering <
-        (Math.ceil(this.searchResult.length / 100) - 1) * 10
-      ) {
-        return 10;
-      } else if (
-        this.pageNumbering ==
-        (Math.ceil(this.searchResult.length / 100) - 1) * 10
-      ) {
-        return (
-          10 -
-          (Math.ceil(this.searchResult.length / 100) * 10 -
-            (parseInt(this.searchResult.length / 9) + 1))
-        );
-      }
     },
   },
 };
@@ -598,52 +340,6 @@ export default {
           height: 2px;
           margin-top: 0.3125rem;
           background-color: #000000;
-        }
-      }
-    }
-  }
-  .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 1.5rem;
-    margin-bottom: 16.625rem;
-
-    figure {
-      width: 1.5rem;
-      height: 1.5rem;
-      margin-right: 0.25rem;
-      cursor: pointer;
-
-      &:nth-child(2n) {
-        margin-right: 0;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    ul {
-      height: 100%;
-      margin: 0 0.25rem;
-      display: flex;
-      align-items: center;
-
-      li {
-        height: 100%;
-        min-width: 1.5625rem;
-        margin: 0 0.5rem;
-        cursor: pointer;
-        font-size: 0.96875rem;
-        line-height: 1.6;
-        font-weight: 800;
-        text-align: center;
-        color: #373232;
-
-        &.active {
-          color: #ff8604;
         }
       }
     }

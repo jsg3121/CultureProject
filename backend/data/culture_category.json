@@ -1,0 +1,13 @@
+[
+  { "id": 1, "name": "전체", "listCategory": "all" },
+  { "id": 2, "name": "문화교양, 강좌", "listCategory": "문화교양" },
+  { "id": 3, "name": "영화", "listCategory": "영화" },
+  { "id": 4, "name": "전시, 미술", "listCategory": "전시" },
+  { "id": 5, "name": "무용", "listCategory": "무용" },
+  { "id": 6, "name": "연극", "listCategory": "연극" },
+  { "id": 7, "name": "뮤지컬, 오페라", "listCategory": "뮤지컬" },
+  { "id": 8, "name": "콘서트", "listCategory": "콘서트" },
+  { "id": 9, "name": "독주, 독창회", "listCategory": "독주" },
+  { "id": 10, "name": "클래식", "listCategory": "클래식" },
+  { "id": 11, "name": "국악", "listCategory": "국악" }
+]

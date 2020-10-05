@@ -30,6 +30,9 @@ export const store = new Vuex.Store({
     },
     cultureCategory(state, category) {
       state.cultureCategory = category;
+    },
+    cultureList(state, list) {
+      state.cultureList = list;
     }
   },
   plugins: [createPersistedState()]
