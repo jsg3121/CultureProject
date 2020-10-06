@@ -104,6 +104,7 @@ export default {
   // updated() {
   //   console.log("부모 6");
   // },
+
   data() {
     return {
       searchVal: "",
