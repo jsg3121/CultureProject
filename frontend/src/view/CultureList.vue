@@ -4,9 +4,9 @@
     <history></history>
     <div class="detail_search">
       <div class="searchResult">
-        <!-- <h4>
-          {{ this.$route.params.filter || this.$store.state.cultureCategory }}
-        </h4> -->
+        <h4>
+          {{ this.$route.params.searchName }}
+        </h4>
         <p>&nbsp;에 관련된 문화행사를 찾았습니다.</p>
       </div>
       <div class="detail_filter">

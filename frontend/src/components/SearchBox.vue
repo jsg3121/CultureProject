@@ -77,9 +77,11 @@ export default {
     cultureCategory: function (index) {
       this.$router.push({
         name: "categoryList",
-        params: { category: this.categoryItem[index - 1].searchCategory },
+        params: {
+          category: this.categoryItem[index - 1].searchCategory,
+          searchName: this.categoryItem[index - 1].category,
+        },
       });
-      console.log(index);
       this.$store.commit(
         "cultureCategory",
         this.categoryItem[index - 1].category
