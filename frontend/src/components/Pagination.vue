@@ -23,11 +23,10 @@
 <script>
 export default {
   created() {
-    console.log("자식 1");
+    this.pagination = this.$store.state.cultureList.length;
+    console.log(this.pagination);
   },
-  mounted() {
-    console.log("자식 2");
-  },
+  mounted() {},
   data() {
     return {
       pagination: 10,

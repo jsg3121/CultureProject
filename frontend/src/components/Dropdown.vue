@@ -2,7 +2,7 @@
   <div class="droudown_container">
     <div class="select_box" @click="dropdown">
       <p>
-        {{ selectData }}
+        {{ selectData || selectName }}
       </p>
       <ul class="select_option">
         <li
@@ -36,8 +36,11 @@ export default {
       this.$http.get(`/culture/category`).then((response) => {
         this.dropdownItem = response.data;
       });
+      if (this.$route.params.searchName !== undefined) {
+        this.selectData = this.$route.params.searchName;
+      }
     }
-    console.log(this.data);
+    console.log(this.$route.params.searchName);
   },
   methods: {
     dropdown: function (event) {
@@ -57,44 +60,12 @@ export default {
     },
     selectItem: function (index) {
       if (this.data == "area") {
-        console.log("지역");
-        // this.dropdownItem.splice(0);
-        // let data = this.$store.state.cultureList;
-
-        // if (index == 0) {
-        //   this.dropdownItem = this.$store.state.cultureList.slice();
-        //   this.pageList = this.dropdownItem.slice(0, 9);
-        // } else {
-        //   for (let i = 0; i < data.length; i++) {
-        //     if (
-        //       this.$store.state.cultureList[i].borough == this.area[index].name
-        //     ) {
-        //       this.dropdownItem.push(this.$store.state.cultureList[i]);
-        //       this.pageList = this.dropdownItem.slice(0, 9);
-        //     }
-        //   }
-        // }
-        // this.selectLocate = this.area[index].name;
         this.selectData = this.dropdownItem[index].name;
+        this.$emit("selectArea", this.selectData);
       } else if (this.data == "category") {
-        console.log("카테고리");
-
         this.selectData = this.dropdownItem[index].name;
 
-        // let category = this.dropdownItem[index].listCategory;
-
-        // this.$http.get(`/culture/category/${category}`).then((response) => {
-        //   this.$store.state.cultureList = response.data;
-        //   this.searchResult = this.$store.state.cultureList;
-        // });
-
-        // this.$router.push({
-        //   name: "categoryList",
-        //   params: {
-        //     category: this.dropdownItem[index].listCategory,
-        //     filter: this.dropdownItem[index].name,
-        //   },
-        // });
+        this.$emit("selectCategory", this.dropdownItem[index]);
       }
     },
   },

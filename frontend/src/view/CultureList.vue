@@ -12,11 +12,14 @@
       <div class="detail_filter">
         <div class="filter_item">
           <p class="item_title">분류</p>
-          <dropdown :data="'category'"></dropdown>
+          <dropdown
+            :data="'category'"
+            @selectCategory="selectCategory"
+          ></dropdown>
         </div>
         <div class="filter_item">
           <p class="item_title">지역</p>
-          <dropdown :data="'area'"></dropdown>
+          <dropdown :data="'area'" @selectArea="selectArea"></dropdown>
         </div>
         <div class="filter_item">
           <p class="item_title">날짜</p>
@@ -57,7 +60,7 @@
         </h3>
       </article>
     </div>
-    <!-- <pagination :resultLength="this.$store.state.cultureList"></pagination> -->
+    <!-- <pagination></pagination> -->
     <vueFooter></vueFooter>
   </div>
 </template>
@@ -71,40 +74,22 @@ import pagination from "../components/Pagination";
 import dropdown from "../components/Dropdown";
 
 export default {
-  created() {
-    // console.log("부모 1");
+  async created() {
     let searchText = this.$route.params.searchText;
     let category = this.$route.params.category;
     if (searchText === undefined) {
-      this.$http.get(`/culture/category/${category}`).then((response) => {
-        this.$store.state.cultureList = response.data;
-        // this.$store.commit("cultureList", response.data);
-        // console.log("부모 2");
-
-        this.searchResult = this.$store.state.cultureList;
-        this.pageList = this.searchResult.slice(0, 9);
+      await this.$http.get(`/culture/category/${category}`).then((response) => {
+        this.submitList(response.data);
       });
     } else if (category === undefined) {
       this.searchVal = searchText;
 
-      this.$http.get(`/culture/search/${searchText}`).then((response) => {
-        this.$store.state.cultureList = response.data;
-        this.searchResult = this.$store.state.cultureList;
-        this.pageList = this.searchResult.slice(0, 9);
+      await this.$http.get(`/culture/search/${searchText}`).then((response) => {
+        this.submitList(response.data);
       });
     }
-    // console.log("부모 3");
+    console.log(this.$route.params.category);
   },
-  // beforeMount() {
-  //   console.log("부모 4");
-  // },
-  // mounted() {
-  //   console.log("부모 5");
-  // },
-  // updated() {
-  //   console.log("부모 6");
-  // },
-
   data() {
     return {
       searchVal: "",
@@ -112,8 +97,6 @@ export default {
       pageList: [],
       pageIndex: 1,
       pageNumbering: 0,
-      selectLocate: "전체",
-      selectCategory: "전체",
     };
   },
   components: {
@@ -155,6 +138,35 @@ export default {
       });
 
       console.log(this.searchResult);
+    },
+    selectArea: function (area) {
+      if (area === "전체") {
+        this.searchResult = this.$store.state.cultureList;
+      } else {
+        this.searchResult = this.$store.state.cultureList.filter((item) => {
+          return item.borough === area;
+        });
+      }
+      this.pageList = this.searchResult.slice(0, 9);
+    },
+    selectCategory: function (category) {
+      let data = category.listCategory;
+      this.$http.get(`/culture/category/${data}`).then((response) => {
+        this.$store.state.cultureList = response.data;
+        this.searchResult = this.$store.state.cultureList;
+      });
+      this.$router.push({
+        name: "categoryList",
+        params: {
+          category: category.listCategory,
+          searchName: category.name,
+        },
+      });
+    },
+    submitList: function (data) {
+      this.$store.commit("cultureList", data);
+      this.searchResult = this.$store.state.cultureList;
+      this.pageList = this.searchResult.slice(0, 9);
     },
   },
 };
