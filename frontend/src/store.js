@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
   state: {
     history: [],
     cultureList: [],
-    cultureCategory: ""
+    cultureCategory: "",
+    selectCategory: "전체"
   },
   mutations: {
     history(state, culture) {

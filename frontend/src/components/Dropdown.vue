@@ -33,14 +33,15 @@ export default {
         this.dropdownItem = response.data;
       });
     } else {
+      this.selectData = this.$store.state.selectCategory;
       this.$http.get(`/culture/category`).then((response) => {
         this.dropdownItem = response.data;
       });
+
       if (this.$route.params.searchName !== undefined) {
         this.selectData = this.$route.params.searchName;
       }
     }
-    console.log(this.$route.params.searchName);
   },
   methods: {
     dropdown: function (event) {
@@ -60,10 +61,13 @@ export default {
     },
     selectItem: function (index) {
       if (this.data == "area") {
-        this.selectData = this.dropdownItem[index].name;
+        this.$store.state.selectLocate = this.dropdownItem[index].name;
+        this.selectData = this.$store.state.selectLocate;
+
         this.$emit("selectArea", this.selectData);
       } else if (this.data == "category") {
-        this.selectData = this.dropdownItem[index].name;
+        this.$store.state.selectCategory = this.dropdownItem[index].name;
+        this.selectData = this.$store.state.selectCategory;
 
         this.$emit("selectCategory", this.dropdownItem[index]);
       }
