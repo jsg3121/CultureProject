@@ -1,18 +1,26 @@
 <template>
   <div class="slide-container">
     <div class="slide-item">
-      <ul class="inner-slide-container" :style="{ transform: 'translateX(' + slideEl.move + '%)' }">
+      <ul
+        class="inner-slide-container"
+        :style="{ transform: 'translateX(' + slideEl.move + '%)' }"
+      >
         <li v-for="(item, index) in slideItem" :key="item.item_num">
           <figure>
             <img :src="item.src" alt="image" draggable="false" />
           </figure>
-          <h2 @click="submit(index)">{{item.title}} 문화 바로가기</h2>
+          <h2 @click="submit(index)">{{ item.title }} 문화 바로가기</h2>
           <h4 v-html="item.coment" @click="submit(index)"></h4>
         </li>
       </ul>
     </div>
     <div class="move-slide">
-      <button v-for="idx in 5" :key="idx" @click="moveSlide(`${idx - 1}`)" :value="idx - 1"></button>
+      <button
+        v-for="idx in 5"
+        :key="idx"
+        @click="moveSlide(`${idx - 1}`)"
+        :value="idx - 1"
+      ></button>
     </div>
   </div>
 </template>
@@ -29,6 +37,7 @@ export default {
           title: "클래식",
           coment: "힘들고 지친 일상 속에서<br>마음의 안식을 채워줍니다",
           category_name: "클래식",
+          category: "클래식",
         },
         {
           item_num: 2,
@@ -36,6 +45,7 @@ export default {
           title: "콘서트",
           coment: "신나게 즐기다보면<br>모든 사람들과 친해진 나를 볼 수 있어요",
           category_name: "콘서트",
+          category: "콘서트",
         },
         {
           item_num: 3,
@@ -43,6 +53,7 @@ export default {
           title: "전시회",
           coment: "조용한 곳에서 눈으로 보는<br>마음의 평화를 얻어가세요",
           category_name: "전시",
+          category: "전시, 미술",
         },
         {
           item_num: 4,
@@ -50,6 +61,7 @@ export default {
           title: "뮤지컬",
           coment: "신나는 노래와 함께<br>한 편의 이야기를 즐겨보세요",
           category_name: "뮤지컬",
+          category: "뮤지컬, 오페라",
         },
         {
           item_num: 5,
@@ -57,6 +69,7 @@ export default {
           title: "국악",
           coment: "역사화 함께 전해내려온<br>우리들의 전통 음악 한마당",
           category_name: "국악",
+          category: "국악",
         },
       ],
       slideEl: {
@@ -101,7 +114,10 @@ export default {
     submit: function (index) {
       this.$router.push({
         name: "categoryList",
-        params: { category: this.slideItem[index].category_name },
+        params: {
+          category: this.slideItem[index].category_name,
+          searchName: this.slideItem[index].category,
+        },
       });
     },
   },
