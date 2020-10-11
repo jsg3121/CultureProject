@@ -32,7 +32,7 @@ export default {
   created() {},
   data() {
     return {
-      searchText: "",
+      searchText: this.$route.params.searchText,
     };
   },
   methods: {
@@ -44,6 +44,7 @@ export default {
       if (this.searchText == "") {
         alert("검색어를 입력해주세요.");
       } else {
+        this.$store.state.selectCategory = "전체";
         this.$router.push({
           name: "cultureList",
           params: { searchText: this.searchText },

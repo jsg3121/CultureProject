@@ -29,8 +29,9 @@ export const store = new Vuex.Store({
       if (overlap == false) state.history.unshift(culture);
       if (state.history.length == 4) state.history.pop();
     },
-    cultureCategory(state, category) {
-      state.cultureCategory = category;
+    cultureCategory(state, data) {
+      state.cultureCategory = data.category;
+      state.selectCategory = data.category;
     },
     cultureList(state, data) {
       state.cultureList = data;

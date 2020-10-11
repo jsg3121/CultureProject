@@ -6,7 +6,7 @@
       <div class="searchResult">
         <h4>
           {{
-            this.$route.params.searchName || this.$store.state.selectCategory
+            this.$route.params.searchText || this.$store.state.selectCategory
           }}
         </h4>
         <p>&nbsp;에 관련된 문화행사를 찾았습니다.</p>
@@ -62,7 +62,7 @@
         </h3>
       </article>
     </div>
-    <!-- <pagination></pagination> -->
+    <!-- <pagination :paginationLength="sendData"></pagination> -->
     <vueFooter></vueFooter>
   </div>
 </template>
@@ -81,6 +81,7 @@ export default {
     let category = this.$route.params.category;
     if (searchText === undefined) {
       this.$http.get(`/culture/category/${category}`).then((response) => {
+        this.searchVal = category;
         this.submitList(response.data);
       });
     } else if (category === undefined) {
@@ -107,6 +108,11 @@ export default {
     history,
     pagination,
     dropdown,
+  },
+  computed: {
+    sendData: function () {
+      return this.searchResult.length;
+    },
   },
   methods: {
     inputSearch: function (event) {

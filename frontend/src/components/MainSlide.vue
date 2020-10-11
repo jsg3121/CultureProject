@@ -112,6 +112,8 @@ export default {
       }, 5000);
     },
     submit: function (index) {
+      this.$store.state.selectCategory = this.slideItem[index].category;
+
       this.$router.push({
         name: "categoryList",
         params: {

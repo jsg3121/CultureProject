@@ -68,6 +68,7 @@ export default {
       if (this.searchText == "") {
         alert("검색어를 입력해주세요.");
       } else {
+        this.$store.state.selectCategory = "전체";
         this.$router.push({
           name: "cultureList",
           params: { searchText: this.searchText },
@@ -82,10 +83,7 @@ export default {
           searchName: this.categoryItem[index - 1].category,
         },
       });
-      this.$store.commit(
-        "cultureCategory",
-        this.categoryItem[index - 1].category
-      );
+      this.$store.commit("cultureCategory", this.categoryItem[index - 1]);
     },
   },
 };

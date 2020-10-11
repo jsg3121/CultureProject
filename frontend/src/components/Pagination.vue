@@ -22,8 +22,9 @@
 
 <script>
 export default {
+  props: ["paginationLength"],
   created() {
-    this.pagination = this.$store.state.cultureList.length;
+    this.pagination = this.paginationLength;
     console.log(this.pagination);
   },
   mounted() {},

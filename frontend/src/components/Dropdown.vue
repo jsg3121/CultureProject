@@ -2,7 +2,7 @@
   <div class="droudown_container">
     <div class="select_box" @click="dropdown">
       <p>
-        {{ selectData || selectName }}
+        {{ selectData }}
       </p>
       <ul class="select_option">
         <li
