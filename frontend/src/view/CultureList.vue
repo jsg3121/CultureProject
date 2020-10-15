@@ -144,8 +144,8 @@ export default {
     },
     scrollList: function() {
       if (
-        window.scrollY + document.documentElement.clientHeight ==
-        document.documentElement.scrollHeight
+        window.scrollY + document.documentElement.clientHeight >=
+        document.documentElement.scrollHeight - 300
       ) {
         console.log("asdf!!!!");
         let listArr = new Array();
