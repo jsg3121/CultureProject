@@ -34,14 +34,20 @@
     <div class="search_list">
       <div class="list_title">
         <h3>[ PROGRAM ]</h3>
-        <h3 class="list_length">
-          [{{ this.$store.state.cultureList.length }}]
-        </h3>
+        <h3 class="list_length">[{{ this.searchResult.length }}]</h3>
       </div>
+      <!-- <div class="select_box" @click="dropdown">
+        <p>이름순으로 보기</p>
+        <ul class="select_option" @click="selectSort">
+          <li class="option">이름순으로 보기</li>
+          <li class="option">장소순으로 보기</li>
+          <li class="option">기간순으로 보기</li>
+        </ul>
+      </div> -->
     </div>
     <div v-if="searchResult.length != 0" class="culture_list">
       <article
-        v-for="(searchList, index) in searchResult"
+        v-for="(searchList, index) in pageList"
         :key="searchList.cultcode"
         class="culture_item"
         @click="submit(index)"
@@ -56,6 +62,7 @@
         </h3>
       </article>
     </div>
+    <!-- <pagination :paginationLength="sendData"></pagination> -->
     <vueFooter></vueFooter>
   </div>
 </template>
@@ -65,6 +72,7 @@ import vueHeader from "../components/Header";
 import slideVue from "../components/MainSlide";
 import vueFooter from "../components/Footer";
 import history from "../components/History";
+import pagination from "../components/Pagination";
 import dropdown from "../components/Dropdown";
 
 export default {
@@ -74,26 +82,23 @@ export default {
     if (searchText === undefined) {
       this.$http.get(`/culture/category/${category}`).then(response => {
         this.searchVal = category;
-        this.$store.commit("cultureList", response.data);
-        this.searchResult = this.$store.state.cultureList.slice(0, 9);
+        this.submitList(response.data);
       });
     } else if (category === undefined) {
       this.searchVal = searchText;
 
       this.$http.get(`/culture/search/${searchText}`).then(response => {
-        this.$store.commit("cultureList", response.data);
-        this.searchResult = this.$store.state.cultureList.slice(0, 9);
+        this.submitList(response.data);
       });
     }
-  },
-  mounted() {
-    window.addEventListener("scroll", this.scrollList);
   },
   data() {
     return {
       searchVal: "",
       searchResult: [],
-      page: 1
+      pageList: [],
+      pageIndex: 1,
+      pageNumbering: 0
     };
   },
   components: {
@@ -101,6 +106,7 @@ export default {
     slideVue,
     vueFooter,
     history,
+    pagination,
     dropdown
   },
   computed: {
@@ -119,6 +125,25 @@ export default {
         params: { detailcode: this.pageList[index].cultcode }
       });
     },
+    selectSort: function(event) {
+      let sortList = document.querySelectorAll(
+        ".search_list .select_box .select_option li"
+      );
+
+      let sortVal = document.querySelector(".search_list .select_box > p");
+      sortVal.innerHTML = event.target.innerHTML;
+
+      this.searchResult = this.searchResult.sort((a, b) => {
+        if (a.place < b.place) {
+          return -1;
+        } else if (a.place > b.place) {
+          return 1;
+        } else {
+          // 이름이 같을 경우
+          return 0;
+        }
+      });
+    },
     selectArea: function(area) {
       if (area === "전체") {
         this.searchResult = this.$store.state.cultureList;
@@ -127,6 +152,7 @@ export default {
           return item.borough === area;
         });
       }
+      this.pageList = this.searchResult.slice(0, 9);
     },
     selectCategory: function(category) {
       let data = category.listCategory;
@@ -142,20 +168,10 @@ export default {
         }
       });
     },
-    scrollList: function() {
-      if (
-        window.scrollY + document.documentElement.clientHeight ==
-        document.documentElement.scrollHeight
-      ) {
-        console.log("asdf!!!!");
-        let listArr = new Array();
-        listArr = this.$store.state.cultureList.slice(
-          this.page * 9,
-          (this.page + 1) * 9
-        );
-        this.searchResult = this.searchResult.concat(listArr);
-        this.page++;
-      }
+    submitList: function(data) {
+      this.$store.commit("cultureList", data);
+      this.searchResult = this.$store.state.cultureList;
+      this.pageList = this.searchResult.slice(0, 9);
     }
   }
 };
